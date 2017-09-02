@@ -1,17 +1,14 @@
 import React, { Component } from 'react'
 
-import * as CategoriesAPI from '../utils/readableAPI'
-
-export default function CategoryList ({ categoryList }) {
-
+export default function CategoryList ({ category }) {
 	return (
 		<div>
 			<ul>
-			{categoryList.length !== 0 && (categoryList.map((category) => (
+			{category.length !== 0 && (category.map((item) => (
 				<li>
 					<div>
-						<p>Name: { category['name'] }</p>
-						<p>Category: { category['path'] }</p>
+						<p>Name: { item['name'] }</p>
+						<p>Category: { item['path'] }</p>
 					</div>
 				</li>
 				))
