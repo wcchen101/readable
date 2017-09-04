@@ -1,7 +1,6 @@
 const clone = require('clone')
 
 let db = {}
-
 const defaultData = {
   "8xf0y6ziyjabvozdd253nd": {
     id: '8xf0y6ziyjabvozdd253nd',
