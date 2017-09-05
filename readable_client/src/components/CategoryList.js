@@ -4,11 +4,11 @@ export default function CategoryList ({ category }) {
 	return (
 		<div>
 			<ul>
-			{category.length !== 0 && (category.map((item) => (
+			{category && (category.map((item) => (
 				<li>
 					<div>
-						<p>Name: { item['name'] }</p>
-						<p>Category: { item['path'] }</p>
+						<p>Category name: { item['name'] }</p>
+						<p>Category path: { item['path'] }</p>
 					</div>
 				</li>
 				))

@@ -7,7 +7,8 @@ if (!token)
 
 const headers = {
   'Accept': 'application/json',
-  'Authorization': token
+  'Authorization': token,
+  'Content-Type': 'application/json',
 }
 
 export const fetchCategories = () =>
@@ -19,3 +20,16 @@ export const fetchPosts = () =>
   fetch(`${api}/posts`, { headers, method: 'GET'  })
   	.then(res => res.json())
   	.then(data => data)
+
+export const writePost = fetch(`${api}/posts`, { headers, method: 'POST', 
+	body: JSON.stringify({
+    id: '8xf0y6ziyjabvozdd254th',
+    timestamp: 1467166872655,
+    title: 'Udacity is the best place to learn React',
+    body: 'Everyone says so after all.',
+    author: 'thingtwo',
+    category: 'react',
+    voteScore: 6,
+    deleted: false,
+	})
+	})
