@@ -1,25 +1,22 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { addCategory } from '../actions'
-import { fetchCategories, fetchPosts, writePost  } from '../utils/readableAPI'
+import { addCategory, addPost } from '../actions'
 import CategoryList from './CategoryList'
 import PostList from './PostList'
 import PostForm from './PostForm'
 
-class App extends Component {
-  state = {
-    category: null,
-    post: null,
-    value: '',
-  }
+import { Link } from 'react-router-dom'
 
+class App extends Component {
   componentDidMount() {
-    fetchCategories().then((category) =>
-      this.setState({category: category})
-    )
-    fetchPosts().then((post) =>
-      this.setState({post: post})
-    )        
+    this.props.addCategory()
+    this.props.addPost()
+    // fetchCategories().then((category) =>
+    //   this.setState({category: category})
+    // )
+    // fetchPosts().then((post) =>
+    //   this.setState({post: post})
+    // )
   }
   // handleSubmit(event) {
   //   if (!this.state.value) {
@@ -44,8 +41,9 @@ class App extends Component {
   // }
 
   render() {
-    const { category, post } = this.state
-
+    const { category, post } = this.props
+    console.log(category)
+    console.log(post)
     return (
       <div className="App">
         <div className='categoryList'>
@@ -68,16 +66,27 @@ class App extends Component {
   }
 }
 
-function mapStateToProps (category, post) {
-  return {
-    category: category,
-    post: post,
-  }
+App.propTypes = {
+  category: React.PropTypes.array.isRequired,
+  addCategory: React.PropTypes.func.isRequired,
 }
 
-function mapDispatchToProps (dispatch) {
+function mapStateToProps (state) {
   return {
-    showCategory: (data) => dispatch(addCategory(data),)
+    category: state.category,
+    post: state.post
   }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+function mapDispatchToProps(dispatch) {
+  return {
+    // addCategory: () => dispatch(fetchCategories()),
+  }
+}
+// export function addCategory() {
+// 	return dispatch => {
+// 		fetch(`${api}/categories`, { headers, method: 'GET' })
+// 		.then(res => res.json())
+// 		.then(data => dispatch(setCategory(data)));
+// 	}
+// }
+export default connect(mapStateToProps, { addCategory, addPost })(App)

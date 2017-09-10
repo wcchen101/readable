@@ -1,39 +1,33 @@
+import { combineReducers } from 'redux'
 import {
 	ADD_CATEGORY,
-	WRITE_POST,
+	SET_POST,
+	SET_CATEGORY,
+	ADD_POST,
 } from '../actions'
 
 const initialState = {
-  category: {
-
-  },
-  post: {
-
-  },
+  category: null,
+  post: null,
 }
 
-export function category (state=initialState, action) {
-	const { category, recipe, meal } = action
-
+export function category (state=[], action={}) {
 	switch(action.type) {
-		case ADD_CATEGORY:
-	      return {
-
-	     }
+		case SET_CATEGORY:
+			return action.category;
 		default:
 			return state
 	}
 }
-export function post (state=initialState, action) {
-	const { post, recipe, meal } = action
-
+export function post (state=[], action={}) {
 	switch(action.type) {
-		case WRITE_POST:
-	      return {
-
-	     }
+		case SET_POST:
+	      return action.post;
 		default:
 			return state
 	}
 }
-export default category
+export default combineReducers({
+	category,
+	post
+})
