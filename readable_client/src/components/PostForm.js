@@ -2,54 +2,70 @@ import React, { Component } from 'react'
 import { writePost } from '../utils/readableAPI'
 
 class PostForm extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {value: ''}
+   state = {
+      id: '',
+      timestamp: '',
+      title: '',
+      body: '',
+      author: '',
+      category: '',
+    }
 
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
+  handleChange = (e) => {
+    const name = e.target.name;
+
+    this.setState({
+      [name]: e.target.value,
+    })
   }
 
-  handleChange(event) {
-    this.setState({value: event.target.value})
-  }
-
-  handleSubmit(event) {
-    console.log('state value', this.state.value)
-
-    writePost(this.state.value)
-    event.preventDefault()
+  handleSubmit = (e) => {
+    e.preventDefault()
+    console.log('state', this.state.id)
+    writePost(this.state)
   }
 
   render() {
     return (
       <div>
       <form onSubmit={this.handleSubmit}>
+      <div>
         <label>
           id:
-          <input type="text" value={this.state.value.id} onChange={this.handleChange} />
         </label>
+        <input type="text" name='id' value={this.state.id} onChange={this.handleChange} />
+      </div>
+      <div>
         <label>
           timestamp:
-          <input type="text" value={this.state.value.timestamp} onChange={this.handleChange} />
         </label>
+        <input type="text" name='timestamp' value={this.state.timestamp} onChange={this.handleChange} />
+      </div>
+      <div>
         <label>
           title:
-          <input type="text" value={this.state.value.title} onChange={this.handleChange} />
         </label>
+        <input type="text" name='title' value={this.state.title} onChange={this.handleChange} />
+      </div>
+      <div>
         <label>
           body:
-          <input type="text" value={this.state.value.body} onChange={this.handleChange} />
         </label>
+        <input type="text" name='body' value={this.state.body} onChange={this.handleChange} />
+      </div>
+      <div>
         <label>
           author:
-          <input type="text" value={this.state.value.author} onChange={this.handleChange} />
         </label>
+          <input type="text" name='author' value={this.state.author} onChange={this.handleChange} />
+      </div>
+      <div>
         <label>
           category:
-          <input type="text" value={this.state.value.category} onChange={this.handleChange} />
         </label>
-        <input type="submit" value="Submit" />
+          <input type="text" name='category' value={this.state.category} onChange={this.handleChange} />
+      </div>
+      <input type="submit" value="Submit" />
       </form>
       </div>
     )
