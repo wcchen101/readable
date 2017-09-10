@@ -24,7 +24,6 @@ class PostForm extends React.Component {
     console.log('state', this.state)
     writePost(this.state)
   }
-
   render() {
     return (
       <div>

@@ -6,16 +6,21 @@ import { connect } from 'react-redux'
 import { addCategory } from '../actions'
 
 class CategoryList extends React.Component {
+  // state = {
+	// 	category: this.props.category ? this.props.category : '',
+	// }
+
 	componentWillMount() {
     this.props.addCategory()
   }
 
 	render () {
-		const { category, post } = this.props
+		const { category } = this.props
+		console.log(this.props.match.params.category)
 		return (
 			<div>
 				<ul>
-				{category && (category.map((item) => (
+				{category && category.length !== 0 && (category.map((item) => (
 					<Route path='' render={() => (
 						<div>
 							<div>
@@ -45,7 +50,13 @@ CategoryList.propTypes = {
   addCategory: React.PropTypes.func.isRequired,
 }
 
-function mapStateToProps (state) {
+function mapStateToProps (state, props) {
+	console.log(state.category)
+	if (props.match.params.category && state.category.length !== 0) {
+		return {
+			category: [state.category.find(item => item.name === props.match.params.category )]
+		}
+	}
   return {
     category: state.category,
   }
