@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { writePost } from '../utils/readableAPI'
+import { connect } from 'react-redux'
 
 class PostForm extends React.Component {
    state = {
@@ -13,7 +14,6 @@ class PostForm extends React.Component {
 
   handleChange = (e) => {
     const name = e.target.name;
-
     this.setState({
       [name]: e.target.value,
     })
@@ -21,7 +21,7 @@ class PostForm extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
-    console.log('state', this.state.id)
+    console.log('state', this.state)
     writePost(this.state)
   }
 

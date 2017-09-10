@@ -7,7 +7,7 @@ export const ADD_CATEGORY = 'ADD_CATEGORY'
 export const SET_POST = 'SET_POST'
 export const SET_CATEGORY = 'SET_CATEGORY'
 export const ADD_POST = 'ADD_POST'
-
+export const SET_CATEGORY_POST = 'SET_CATEGORY_POST'
 
 const api = process.env.REACT_APP_CONTACTS_API_URL || 'http://localhost:5002'
 
@@ -49,5 +49,19 @@ export function addPost() {
 		fetch(`${api}/posts`, { headers, method: 'GET'  })
 			.then(res => res.json())
 			.then(data => dispatch(setPost(data)))
+	}
+}
+
+export function setCategoryPost(categoryPost) {
+  return {
+    type: SET_CATEGORY_POST,
+    categoryPost,
+  }
+}
+export function addCategoryPost(category) {
+	return dispatch => {
+		fetch(`${api}/${category}/posts`, { headers, method: 'GET'  })
+			.then(res => res.json())
+			.then(data => dispatch(setCategoryPost(data)))
 	}
 }

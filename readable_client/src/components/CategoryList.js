@@ -1,32 +1,65 @@
 import React, { Component } from 'react'
 import PostList from './PostList'
 import PostForm from './PostForm'
+import { Route } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { addCategory, addPost } from '../actions'
 
-export default function CategoryList ({ category, post }) {
-	return (
-		<div>
-			<ul>
-			{category && (category.map((item) => (
-				<li>
-					<div>
-						<p>Category name: { item['name'] }</p>
-						<p>Category path: { item['path'] }</p>
-					</div>
-					<div className='postList'>
-            <h1>Post</h1>
-            <PostList
-							categoryName = {item['name']}
-              post={post}
-            />
-            <div classNmae='post'>
-              <PostForm/>
-            </div>
-          </div>
-				</li>
-				))
-			)}
-			</ul>
-
-		</div>
-	)
+class CategoryList extends React.Component {
+	componentWillMount() {
+    this.props.addCategory()
+    this.props.addPost()
+  }
+  componentWillReceiveProps(nextProps) {
+		this.setState({
+			post: nextProps.post,
+		})
+	}
+	render () {
+		const { category, post } = this.props
+		return (
+			<div>
+				<ul>
+				{category && (category.map((item) => (
+					<Route path='' render={() => (
+						<div>
+							<div>
+								<p>Category name: { item['name'] }</p>
+								<p>Category path: { item['path'] }</p>
+							</div>
+							<div className='postList'>
+		            <h1>Post</h1>
+		            <PostList
+									categoryName = {item['name']}
+		              post={post}
+		            />
+		            <div classNmae='post'>
+		              <PostForm/>
+		            </div>
+		          </div>
+						</div>
+					)}/>
+					))
+				)}
+				</ul>
+			</div>
+		)
+	}
 }
+CategoryList.propTypes = {
+  category: React.PropTypes.array.isRequired,
+  addCategory: React.PropTypes.func.isRequired,
+}
+
+function mapStateToProps (state) {
+  return {
+    category: state.category,
+    post: state.post
+  }
+}
+function mapDispatchToProps(dispatch) {
+  return {
+    // addCategory: () => dispatch(fetchCategories()),
+  }
+}
+export default connect(mapStateToProps, { addCategory, addPost })(CategoryList)
