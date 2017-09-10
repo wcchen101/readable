@@ -3,18 +3,13 @@ import PostList from './PostList'
 import PostForm from './PostForm'
 import { Route } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { addCategory, addPost } from '../actions'
+import { addCategory } from '../actions'
 
 class CategoryList extends React.Component {
 	componentWillMount() {
     this.props.addCategory()
-    this.props.addPost()
   }
-  componentWillReceiveProps(nextProps) {
-		this.setState({
-			post: nextProps.post,
-		})
-	}
+
 	render () {
 		const { category, post } = this.props
 		return (
@@ -31,7 +26,6 @@ class CategoryList extends React.Component {
 		            <h1>Post</h1>
 		            <PostList
 									categoryName = {item['name']}
-		              post={post}
 		            />
 		            <div classNmae='post'>
 		              <PostForm/>
@@ -54,12 +48,12 @@ CategoryList.propTypes = {
 function mapStateToProps (state) {
   return {
     category: state.category,
-    post: state.post
   }
+
 }
 function mapDispatchToProps(dispatch) {
   return {
     // addCategory: () => dispatch(fetchCategories()),
   }
 }
-export default connect(mapStateToProps, { addCategory, addPost })(CategoryList)
+export default connect(mapStateToProps, { addCategory })(CategoryList)
