@@ -26,7 +26,7 @@ class PostList extends React.Component {
 								<p>Post timestamp: { item['timestamp'] }</p>
 								<p>Post title: { item['title'] }</p>
 								<p>Category body: { item['body'] }</p>
-								<Link to={`post/${item['id']}`}>Edit</Link>
+								<Link to={`/${item['id']}`}>Edit</Link>
 							</div>
 					)}
 					</div>
