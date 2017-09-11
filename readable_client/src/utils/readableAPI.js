@@ -21,8 +21,8 @@ export const fetchPosts = () =>
   	.then(res => res.json())
   	.then(data => data)
 
-// export const writePost = (post) => 
-//   fetch(`${api}/posts`, { headers, method: 'POST', 
+// export const writePost = (post) =>
+//   fetch(`${api}/posts`, { headers, method: 'POST',
 // 	body: JSON.stringify({
 //     id: '8xf0y6ziyjabvozdd254th',
 //     timestamp: 1467166872655,
@@ -35,7 +35,7 @@ export const fetchPosts = () =>
 // 	})
 //   })
  export const writePost = (post) =>
-  fetch(`${api}/posts`, { headers, method: 'POST', 
+  fetch(`${api}/posts`, { headers, method: 'POST',
 	body: JSON.stringify({
     id: post.id,
     timestamp: post.timestamp,
@@ -45,3 +45,7 @@ export const fetchPosts = () =>
     category: post.category,
 	})
   })
+
+  export const writeComment = () => {
+    
+  }

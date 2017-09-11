@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { Route } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { addPost } from '../actions'
+import CommentList from './CommentList'
 
 class PostList extends React.Component {
 	componentWillMount() {
@@ -21,13 +22,19 @@ class PostList extends React.Component {
 				{post && (post.map((item) => (
 					<div>
 					{categoryName === item['category'] && (
-							<div>
+						<div className='postComponent'>
+							<div className='postList'>
 								<p>Post id: { item['id'] }</p>
 								<p>Post timestamp: { item['timestamp'] }</p>
 								<p>Post title: { item['title'] }</p>
 								<p>Category body: { item['body'] }</p>
 								<Link to={`/${item['id']}`}>Edit</Link>
 							</div>
+							<div>
+								<CommentList/>
+							</div>
+						</div>
+
 					)}
 					</div>
 					))

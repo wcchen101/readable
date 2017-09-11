@@ -32,7 +32,7 @@ class CategoryList extends React.Component {
 									categoryName = {item['name']}
 									match = {match}
 		            />
-		            <div classNmae='post'>
+		            <div className='post'>
 		              <PostForm/>
 		            </div>
 		          </div>
