@@ -15,7 +15,8 @@ class App extends Component {
     return (
       <div className="App">
         <Route exact path='/category' component={CategoryList}/>
-        <Route exact path='/:category' component={CategoryList}/>        
+        <Route exact path='/:category' component={CategoryList}/>
+        <Route exact path='/:category/:post' component={CategoryList}/>          
       </div>
     )
   }

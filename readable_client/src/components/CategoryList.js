@@ -3,12 +3,9 @@ import PostList from './PostList'
 import PostForm from './PostForm'
 import { Route } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { addCategory } from '../actions'
+import { addCategory, addPost } from '../actions'
 
 class CategoryList extends React.Component {
-  // state = {
-	// 	category: this.props.category ? this.props.category : '',
-	// }
 
 	componentWillMount() {
     this.props.addCategory()
@@ -16,6 +13,8 @@ class CategoryList extends React.Component {
 
 	render () {
 		const { category } = this.props
+		const { match } =  this.props
+
 		console.log(this.props.match.params.category)
 		return (
 			<div>
@@ -31,6 +30,7 @@ class CategoryList extends React.Component {
 		            <h1>Post</h1>
 		            <PostList
 									categoryName = {item['name']}
+									match = {match}
 		            />
 		            <div classNmae='post'>
 		              <PostForm/>
@@ -51,16 +51,15 @@ CategoryList.propTypes = {
 }
 
 function mapStateToProps (state, props) {
-	console.log(state.category)
+	console.log('category props', props)
 	if (props.match.params.category && state.category.length !== 0) {
 		return {
 			category: [state.category.find(item => item.name === props.match.params.category )]
 		}
 	}
   return {
-    category: state.category,
+    category: state.category
   }
-
 }
 function mapDispatchToProps(dispatch) {
   return {

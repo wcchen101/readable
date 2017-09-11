@@ -39,11 +39,12 @@ class PostList extends React.Component {
 }
 
 function mapStateToProps(state, props) {
-	// if (props.params && state.post) {
-	// 	return {
-	// 		post: state.post.find(item => item.category === props.params.categoryName )
-	// 	}
-	// }
+	console.log('props', props)
+	if (props.match.params.post && state.post.length !== 0) {
+		return {
+			post: [state.post.find(item => item.id === props.match.params.post)]
+		}
+	}
 	return {
 		post: state.post,
 	}
