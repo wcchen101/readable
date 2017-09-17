@@ -21,31 +21,30 @@ export const fetchPosts = () =>
   	.then(res => res.json())
   	.then(data => data)
 
-// export const writePost = (post) =>
-//   fetch(`${api}/posts`, { headers, method: 'POST',
-// 	body: JSON.stringify({
-//     id: '8xf0y6ziyjabvozdd254th',
-//     timestamp: 1467166872655,
-//     title: 'Udacity is the best place to learn React',
-//     body: 'Everyone says so after all.',
-//     author: 'thingtwo',
-//     category: 'react',
-//     voteScore: 6,
-//     deleted: false,
-// 	})
-//   })
- export const writePost = (post) =>
+export const fetchComment = (postId) =>
+  fetch(`${api}/posts/${postId}/comments`, { headers, method: 'GET'  })
+    .then(res => res.json())
+    .then(data => data)
+
+export const writePost = (post) =>
   fetch(`${api}/posts`, { headers, method: 'POST',
-	body: JSON.stringify({
+  body: JSON.stringify({
     id: post.id,
     timestamp: post.timestamp,
     title: post.title,
     body: post.body,
     author: post.author,
     category: post.category,
-	})
   })
+})
 
-  export const writeComment = () => {
-    
-  }
+export const writeComment = (comment) =>
+  fetch(`${api}/comments`, { headers, method: 'POST',
+  body: JSON.stringify({
+    id: comment.id,
+    timestamp: comment.timestamp,
+    body: comment.body,
+    author: comment.author,
+    parentId: comment.parentId,
+  })
+})

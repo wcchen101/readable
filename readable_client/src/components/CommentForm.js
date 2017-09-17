@@ -6,10 +6,9 @@ class CommentForm extends React.Component {
    state = {
       id: '',
       timestamp: '',
-      title: '',
       body: '',
       author: '',
-      category: '',
+      parentId: this.props.postId,
     }
 
   handleChange = (e) => {
@@ -25,6 +24,8 @@ class CommentForm extends React.Component {
     writeComment(this.state)
   }
   render() {
+    const { postId } = this.props
+    console.log(postId)
     return (
       <div>
       <form onSubmit={this.handleSubmit}>
@@ -52,12 +53,6 @@ class CommentForm extends React.Component {
         </label>
         <input type="text" name='author' value={this.state.author} onChange={this.handleChange} />
       </div>
-      <div>
-        <label>
-          author:
-        </label>
-          <input type="text" name='parentId' value={this.state.parentId} onChange={this.handleChange} />
-      </div>
       <input type="submit" value="Submit" />
       </form>
       </div>
@@ -65,4 +60,4 @@ class CommentForm extends React.Component {
   }
 }
 
-export default CommentForm;
+export default CommentForm

@@ -4,12 +4,14 @@ import {
 	SET_POST,
 	SET_CATEGORY,
 	ADD_POST,
-	SET_CATEGORY_POST,
+	SET_COMMENT,
+	ADD_COMMENT,
 } from '../actions'
 
 const initialState = {
   category: null,
   post: null,
+	comment: null,
 }
 
 export function category (state=[], action={}) {
@@ -24,25 +26,20 @@ export function post (state=[], action={}) {
 	switch(action.type) {
 		case SET_POST:
 	      return action.post;
-		case SET_CATEGORY_POST:
-			const index = state.findIndex(item => item.id === action.game.id);
-			if (index > -1) {
-				return state.map(item => {
-					if (item.id === action.game.id) return action.game;
-					return item;
-				});
-			}
-			else {
-				return [
-					...state,
-					action.game
-				];
-			}
+		default:
+			return state
+	}
+}
+export function comment (state=[], action={}) {
+	switch(action.type) {
+		case SET_COMMENT:
+			return action.comment;
 		default:
 			return state
 	}
 }
 export default combineReducers({
 	category,
-	post
+	post,
+	comment
 })

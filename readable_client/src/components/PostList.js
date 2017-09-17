@@ -16,6 +16,9 @@ class PostList extends React.Component {
 	}
 	render() {
 		const { categoryName, post } = this.props
+		const { match } =  this.props
+		console.log('match', match)
+
 		return (
 			<div>
 				<ul>
@@ -31,10 +34,12 @@ class PostList extends React.Component {
 								<Link to={`/${item['id']}`}>Edit</Link>
 							</div>
 							<div>
-								<CommentList/>
+								<CommentList
+									postId={ item['id'] }
+									match={match}
+								/>
 							</div>
 						</div>
-
 					)}
 					</div>
 					))

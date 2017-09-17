@@ -8,6 +8,8 @@ export const SET_POST = 'SET_POST'
 export const SET_CATEGORY = 'SET_CATEGORY'
 export const ADD_POST = 'ADD_POST'
 export const SET_CATEGORY_POST = 'SET_CATEGORY_POST'
+export const ADD_COMMENT = 'ADD_COMMENT'
+export const SET_COMMENT = 'SET_COMMENT'
 
 const api = process.env.REACT_APP_CONTACTS_API_URL || 'http://localhost:5002'
 
@@ -28,7 +30,6 @@ export function setCategory(category) {
 		category,
 	}
 }
-
 export function addCategory() {
 	return dispatch => {
 		fetch(`${api}/categories`, { headers, method: 'GET' })
@@ -58,10 +59,23 @@ export function setCategoryPost(categoryPost) {
     categoryPost,
   }
 }
-export function addCategoryPost(category) {
-	return dispatch => {
-		fetch(`${api}/${category}/posts`, { headers, method: 'GET'  })
-			.then(res => res.json())
-			.then(data => dispatch(setCategoryPost(data)))
-	}
+// export function addCategoryPost(category) {
+// 	return dispatch => {
+// 		fetch(`${api}/${category}/posts`, { headers, method: 'GET' })
+// 			.then(res => res.json())
+// 			.then(data => dispatch(setCategoryPost(data)))
+// 	}
+// }
+export function setComment(comment) {
+  return {
+    type: SET_COMMENT,
+    comment
+  }
+}
+export function addComment(postId) {
+  return dispatch => {
+    fetch(`${api}/posts/${postId}/comments`, { headers, method: 'GET' })
+      .then(res => res.json())
+      .then(data => dispatch(setComment(data)))
+  }
 }

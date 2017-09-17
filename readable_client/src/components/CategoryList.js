@@ -33,6 +33,7 @@ class CategoryList extends React.Component {
 									match = {match}
 		            />
 		            <div className='post'>
+									<h2> Add new post</h2>
 		              <PostForm/>
 		            </div>
 		          </div>
