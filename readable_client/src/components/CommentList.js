@@ -4,7 +4,8 @@ import { Route } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { addComment } from '../actions'
 import CommentForm from './CommentForm'
-import { fetchComment } from '../utils/readableAPI'
+import { fetchComment, deleteComment } from '../utils/readableAPI'
+
 class CommentList extends React.Component {
 	state = {
 		comment: null,
@@ -12,10 +13,20 @@ class CommentList extends React.Component {
 	componentWillMount() {
       fetchComment(this.props.postId).then((comment) =>
 				this.setState(() => ({
-					comment,
+					comment: comment
 				}))
 			)
   }
+	onDelete = (id) => {
+		console.log('id', id)
+		deleteComment(id)
+		fetchComment(this.props.postId).then((comment) =>
+			this.setState(() => ({
+				comment: comment
+			}))
+		)
+		console.log('comment complete')
+}
 	render() {
 		const { postId, match } = this.props
 		const { comment } = this.state
@@ -33,6 +44,8 @@ class CommentList extends React.Component {
 							<p>Body: {item.body} </p>
 							<p>Author: {item.author} </p>
 							<p>Post Id: {item.parentId} </p>
+							<p>Deleted: {item.deleted} </p>
+							<button onClick={ () => this.onDelete(item.id) }>Delete</button>
 						</div>
 					  ))
 					)}

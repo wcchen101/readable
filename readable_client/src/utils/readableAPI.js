@@ -22,9 +22,17 @@ export const fetchPosts = () =>
   	.then(data => data)
 
 export const fetchComment = (postId) =>
-  fetch(`${api}/posts/${postId}/comments`, { headers, method: 'GET'  })
-    .then(res => res.json())
+  fetch(`${api}/posts/${postId}/comments`, { headers, method: 'GET' })
+    .then((res) => res.json())
     .then(data => data)
+
+export const deleteComment = (commentId) => {
+  fetch(`${api}/comments/${commentId}`, { headers, method: 'DELETE',
+  body: JSON.stringify({
+    deleted: true,
+    })
+  })
+}
 
 export const writePost = (post) =>
   fetch(`${api}/posts`, { headers, method: 'POST',
