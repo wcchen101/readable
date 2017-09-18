@@ -14,34 +14,36 @@ class CategoryList extends React.Component {
 	render () {
 		const { category } = this.props
 		const { match } =  this.props
-
-		console.log(this.props.match.params.category)
+		const { comment } = this.props.match.params
+		console.log('category: ', this.props.match.params)
 		return (
 			<div>
-				<ul>
-				{category && category.length !== 0 && (category.map((item) => (
-					<Route path='' render={() => (
-						<div>
-							<div>
-								<p>Category name: { item['name'] }</p>
-								<p>Category path: { item['path'] }</p>
-							</div>
-							<div className='postList'>
-		            <h1>Post</h1>
-		            <PostList
-									categoryName = {item['name']}
-									match = {match}
-		            />
-		            <div className='post'>
-									<h2> Add new post</h2>
-		              <PostForm/>
-		            </div>
-		          </div>
-						</div>
-					)}/>
-					))
-				)}
-				</ul>
+					<div>
+						<ul>
+						{category && category.length !== 0 && (category.map((item) => (
+							<Route path='' render={() => (
+								<div>
+									<div>
+										<p>Category name: { item['name'] }</p>
+										<p>Category path: { item['path'] }</p>
+									</div>
+									<div className='postList'>
+										<h1>Post</h1>
+										<PostList
+											categoryName = {item['name']}
+											match = {match}
+										/>
+										<div className='post'>
+											<h2> Add new post</h2>
+											<PostForm/>
+										</div>
+									</div>
+								</div>
+							)}/>
+							))
+						)}
+						</ul>
+					</div>
 			</div>
 		)
 	}

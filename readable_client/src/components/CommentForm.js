@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { writeComment } from '../utils/readableAPI'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 class CommentForm extends React.Component {
    state = {
@@ -9,6 +10,7 @@ class CommentForm extends React.Component {
       body: '',
       author: '',
       parentId: this.props.postId,
+      editMode: false,
     }
 
   handleChange = (e) => {
@@ -22,6 +24,7 @@ class CommentForm extends React.Component {
     e.preventDefault()
     console.log('state', this.state)
     writeComment(this.state)
+    window.location.reload()
   }
   render() {
     const { postId } = this.props
@@ -53,7 +56,7 @@ class CommentForm extends React.Component {
         </label>
         <input type="text" name='author' value={this.state.author} onChange={this.handleChange} />
       </div>
-      <input type="submit" value="Submit" />
+        <input type="submit" value="Submit" />
       </form>
       </div>
     )
