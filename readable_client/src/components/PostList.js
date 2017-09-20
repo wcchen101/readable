@@ -13,8 +13,9 @@ class PostList extends React.Component {
 	render() {
 		const { categoryName, post } = this.props
 		const { match } =  this.props
-		console.log('post', post)
-		console.log('post match ', match.params)
+		post.sort((a, b) => {
+			return b.voteScore - a.voteScore;
+		})
 		return (
 			<div>
 				<ul>
@@ -28,6 +29,7 @@ class PostList extends React.Component {
 								<p>Post timestamp: { item['timestamp'] }</p>
 								<p>Post title: { item['title'] }</p>
 								<p>Category body: { item['body'] }</p>
+								<p>Vote Score: { item['voteScore'] }</p>
 							</div>
 							<div>
 								<CommentList
