@@ -21,7 +21,6 @@ class PostForm extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
-    console.log('state', this.state)
     writePost(this.state)
   }
   render() {

@@ -1,0 +1,18 @@
+html, body, .root {
+  height: 100%;
+}
+body {
+  line-height: 1.5;
+}
+body, .app {
+  background: white;
+}
+.list-readable-title {
+  padding: 10px 0;
+  background: DodgerBlue;
+  text-align: center;
+}
+
+div {
+  text-align: center;
+}

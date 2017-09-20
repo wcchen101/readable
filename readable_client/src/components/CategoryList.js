@@ -4,9 +4,10 @@ import PostForm from './PostForm'
 import { Route } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { addCategory, addPost } from '../actions'
+import { Link } from 'react-router-dom'
+
 
 class CategoryList extends React.Component {
-
 	componentWillMount() {
     this.props.addCategory()
   }
@@ -34,16 +35,16 @@ class CategoryList extends React.Component {
 											categoryName = {item['name']}
 											match = {match}
 										/>
-										<div className='post'>
-											<h2> Add new post</h2>
-											<PostForm/>
-										</div>
 									</div>
 								</div>
 							)}/>
 							))
 						)}
 						</ul>
+						<div className='post'>
+							<h2> Add new post</h2>
+							<PostForm/>
+						</div>
 					</div>
 			</div>
 		)
