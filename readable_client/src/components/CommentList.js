@@ -64,6 +64,7 @@ class CommentList extends React.Component {
 									<h2>Add New Comment</h2>
 									<CommentForm
 										postId={postId}
+										commentId={this.props.match.params.comment}
 									/>
 								</div>
 							) : (

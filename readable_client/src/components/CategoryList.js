@@ -23,6 +23,7 @@ class CategoryList extends React.Component {
 						{category && category.length !== 0 && (category.map((item) => (
 							<Route path='' render={() => (
 								<div>
+									<h1>Category</h1>
 									<div>
 										<p>Category name: { item['name'] }</p>
 										<p>Category path: { item['path'] }</p>

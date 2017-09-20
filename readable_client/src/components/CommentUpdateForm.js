@@ -14,12 +14,13 @@ class CommentUpdateForm extends React.Component {
     this.setState({
       [name]: e.target.value,
     })
+    console.log('update state', this.state)
   }
 
   handleSubmit = (e) => {
     e.preventDefault()
-    console.log('state', this.state)
-    updateComment(this.state.id, this.state)
+    console.log('match comment here', this.props.comment)
+    updateComment(this.props.comment[0].id, this.state)
     window.location.reload()
   }
   updatePreComment(newcomment) {
@@ -30,12 +31,6 @@ class CommentUpdateForm extends React.Component {
   }
   render() {
     const { comment } = this.props
-    let newcomment = comment.shift()
-    if (newcomment) {
-      this.updatePreComment(newcomment)
-    }
-    console.log('comment list c', newcomment)
-
     return (
       <div>
       <form onSubmit={this.handleSubmit}>
@@ -43,17 +38,13 @@ class CommentUpdateForm extends React.Component {
         <label>
           timestamp:
         </label>
-        <div key=''>
-        <input type="this.state.stamp" name='timestamp' ref='oldCommentTimestamp' value={this.state.preTimestamp} onChange={this.handleChange} />
-        </div>
+        <input type="text" name='preTimestamp' value={this.state.preTimestamp} onChange={this.handleChange} />
       </div>
       <div>
         <label>
           body:
         </label>
-        <div key='this.state.body'>
-        <input type="text" name='body' ref='oldCommentBody' value={this.state.preBody} onChange={this.handleChange} />
-        </div>
+        <input type="text" name='preBody' value={this.state.preBody} onChange={this.handleChange} />
       </div>
         <input type="submit" value="Update" />
       </form>

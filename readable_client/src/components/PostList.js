@@ -9,15 +9,12 @@ class PostList extends React.Component {
 	componentWillMount() {
     this.props.addPost()
   }
-	// componentWillReceiveProps(nextProps) {
-	// 	this.setState({
-	// 		post: nextProps.post,
-	// 	})
-	// }
+
 	render() {
 		const { categoryName, post } = this.props
 		const { match } =  this.props
 		console.log('post', post)
+		console.log('post match ', match.params)
 		return (
 			<div>
 				<ul>
@@ -25,6 +22,7 @@ class PostList extends React.Component {
 					<div>
 					{categoryName === item['category'] && (
 						<div className='postComponent'>
+							<button><Link to={`/${item['category']}/${item['id']}/`}>Edit Post</Link></button>
 							<div className='postList'>
 								<p>Post id: { item['id'] }</p>
 								<p>Post timestamp: { item['timestamp'] }</p>
