@@ -41,8 +41,8 @@ class CategoryList extends React.Component {
 							))
 						)}
 						</ul>
-						<div className='post'>
-							<h2> Add new post</h2>
+						<div id='addNewPost'>
+							<h3> Add new post</h3>
 							<PostForm/>
 						</div>
 					</div>

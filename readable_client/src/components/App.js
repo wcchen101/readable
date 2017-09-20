@@ -21,6 +21,7 @@ class App extends Component {
           <button><Link to={`/react/`}>React</Link></button>
           <button><Link to={`/redux/`}>Redux</Link></button>
           <button><Link to={`/udacity/`}>Udacity</Link></button>
+          <button><a href='#addNewPost'>Add new post</a></button>
           <Route exact path='/' component={CategoryList}/>
           <Route exact path='/:category' component={CategoryList}/>
           <Route exact path='/:category/:post' component={CategoryList}/>

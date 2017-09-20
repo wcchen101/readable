@@ -61,7 +61,7 @@ class CommentList extends React.Component {
 							</div>
 							{matchComment === undefined ? (
 								<div>
-									<h2>Add New Comment</h2>
+									<h3>Add New Comment</h3>
 									<CommentForm
 										postId={postId}
 										commentId={this.props.match.params.comment}
@@ -69,7 +69,7 @@ class CommentList extends React.Component {
 								</div>
 							) : (
 								<div>
-									<h2>Update Comment</h2>
+									<h3>Update Comment</h3>
 									<CommentUpdateForm
 										comment={comment}
 									/>
