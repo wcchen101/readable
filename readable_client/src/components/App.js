@@ -14,7 +14,7 @@ class App extends Component {
 
     return (
         <div className="App">
-          <div className="list-readable-title">
+          <div className="app-title">
             <h1>Readable</h1>
           </div>
           <button><Link to={`/`}>Main Page</Link></button>
