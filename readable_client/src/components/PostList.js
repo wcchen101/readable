@@ -4,15 +4,23 @@ import { Route } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { addPost } from '../actions'
 import CommentList from './CommentList'
-import { deletePost } from '../utils/readableAPI'
+import { deletePost, upVotePost, downVotePost } from '../utils/readableAPI'
+import RaisedButton from 'material-ui/FlatButton';
 
 class PostList extends React.Component {
 	componentWillMount() {
     this.props.addPost()
   }
 	deletePost = (postId) => {
-		console.log('click', postId);
 		deletePost(postId)
+    window.location.reload()
+	}
+	onUpVote = (postId) => {
+		upVotePost(postId)
+    window.location.reload()
+	}
+	onDownVote = (postId) => {
+		downVotePost(postId)
     window.location.reload()
 	}
 	render() {
@@ -28,8 +36,8 @@ class PostList extends React.Component {
 					<div>
 					{categoryName === item['category'] && (
 						<div className='postComponent'>
-							<button><Link to={`/${item['category']}/${item['id']}/`}>Edit Post</Link></button>
-							<button onClick={() => this.deletePost(item['id'])}>Delete Post</button>
+							<RaisedButton ><Link to={`/${item['category']}/${item['id']}/`}>Edit Post</Link></RaisedButton>
+							<RaisedButton label="Delete Post" secondary={true} onClick={() => this.deletePost(item['id'])}/>
 							<div className='postList'>
 								<p>Post id: { item['id'] }</p>
 								<p>Post timestamp: { item['timestamp'] }</p>
@@ -37,6 +45,8 @@ class PostList extends React.Component {
 								<p>Category body: { item['body'] }</p>
 								<p>Vote Score: { item['voteScore'] }</p>
 							</div>
+							<RaisedButton label="Upvote" primary={true} onClick={() => this.onUpVote(item['id'])}/>
+							<RaisedButton label="Downvote" secondary={true} onClick={() => this.onDownVote(item['id'])}/>
 							<div>
 								<CommentList
 									postId={ item['id'] }

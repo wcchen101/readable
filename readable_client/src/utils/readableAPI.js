@@ -72,3 +72,19 @@ export const deletePost = (postId) => {
     })
   })
 }
+
+export const upVotePost = (postId) => {
+  fetch(`${api}/posts/${postId}`, { headers, method: 'POST',
+  body: JSON.stringify({
+    option: 'upVote',
+    })
+  })
+}
+
+export const downVotePost = (postId) => {
+  fetch(`${api}/posts/${postId}`, { headers, method: 'POST',
+  body: JSON.stringify({
+    option: 'downVote',
+    })
+  })
+}

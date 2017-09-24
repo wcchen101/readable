@@ -7,26 +7,29 @@ import PostList from './PostList'
 import { Route } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import './App.css'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import AppBar from 'material-ui/AppBar';
+import FlatButton from 'material-ui/FlatButton';
 
 class App extends Component {
   render() {
-    const { category, post } = this.props
-
     return (
+      <MuiThemeProvider>
         <div className="App">
-          <div className="app-title">
-            <h1>Readable</h1>
-          </div>
-          <button><Link to={`/`}>Main Page</Link></button>
-          <button><Link to={`/react/`}>React</Link></button>
-          <button><Link to={`/redux/`}>Redux</Link></button>
-          <button><Link to={`/udacity/`}>Udacity</Link></button>
-          <button><a href='#addNewPost'>Add new post</a></button>
+          <AppBar title="My Readable" />
+          <FlatButton><Link to={`/`}>Main Page</Link></FlatButton>
+          <FlatButton><Link to={`/react/`}>React</Link></FlatButton>
+          <FlatButton><Link to={`/redux/`}>Redux</Link></FlatButton>
+          <FlatButton><Link to={`/udacity/`}>Udacity</Link></FlatButton>
+          <FlatButton ><a href='#addNewPost'>New Post</a></FlatButton>
           <Route exact path='/' component={CategoryList}/>
           <Route exact path='/:category' component={CategoryList}/>
           <Route exact path='/:category/:post' component={CategoryList}/>
           <Route exact path='/:category/:post/:comment' component={CategoryList}/>
         </div>
+      </MuiThemeProvider>
+
+
     )
   }
 }

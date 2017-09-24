@@ -16,10 +16,8 @@ class CommentUpdateForm extends React.Component {
     })
     console.log('update state', this.state)
   }
-
   handleSubmit = (e) => {
     e.preventDefault()
-    console.log('match comment here', this.props.comment)
     updateComment(this.props.comment[0].id, this.state)
     window.location.reload()
   }

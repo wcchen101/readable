@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { writeComment } from '../utils/readableAPI'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+import RaisedButton from 'material-ui/FlatButton';
 
 class CommentForm extends React.Component {
    state = {
@@ -56,7 +57,7 @@ class CommentForm extends React.Component {
         </label>
         <input type="text" name='author' value={this.state.author} onChange={this.handleChange} />
       </div>
-        <input type="submit" value="Submit" />
+        <RaisedButton primary={true}><input type="submit" value="Submit" /></RaisedButton>
       </form>
       </div>
     )
