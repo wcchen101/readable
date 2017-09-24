@@ -6,8 +6,14 @@ import { addPost } from '../actions'
 import CommentList from './CommentList'
 import { deletePost, upVotePost, downVotePost } from '../utils/readableAPI'
 import RaisedButton from 'material-ui/FlatButton';
+import editPostForm from './editPostForm'
+import PostForm from './PostForm'
 
 class PostList extends React.Component {
+	state = {
+		editPostMode: false,
+		editItem: this.props.post,
+	}
 	componentWillMount() {
     this.props.addPost()
   }
@@ -23,43 +29,61 @@ class PostList extends React.Component {
 		downVotePost(postId)
     window.location.reload()
 	}
+	onEdit = (item) => {
+		console.log('click on edit', item)
+
+		this.setState({
+			editPostMode: true,
+			editItem: item,
+		})
+	}
 	render() {
 		const { categoryName, post } = this.props
 		const { match } =  this.props
+		const { editPostMode } = this.state
 		post.sort((a, b) => {
 			return b.voteScore - a.voteScore;
 		})
 		return (
 			<div>
-				<ul>
-				{post && (post.map((item) => (
-					<div>
-					{categoryName === item['category'] && (
-						<div className='postComponent'>
-							<RaisedButton ><Link to={`/${item['category']}/${item['id']}/`}>Edit Post</Link></RaisedButton>
-							<RaisedButton label="Delete Post" secondary={true} onClick={() => this.deletePost(item['id'])}/>
-							<div className='postList'>
-								<p>Post id: { item['id'] }</p>
-								<p>Post timestamp: { item['timestamp'] }</p>
-								<p>Post title: { item['title'] }</p>
-								<p>Category body: { item['body'] }</p>
-								<p>Vote Score: { item['voteScore'] }</p>
+			{ editPostMode !== true ? (
+				<div>
+					<ul>
+					{post && (post.map((item) => (
+						<div>
+						{categoryName === item['category'] && (
+							<div className='postComponent'>
+								// <RaisedButton><Link to={`/${item['category']}/${item['id']}`}>Edit Post</Link></RaisedButton>
+								<RaisedButton onClick={() => this.onEdit(item)}>Edit Post</RaisedButton>
+								<RaisedButton label="Delete Post" secondary={true} onClick={() => this.deletePost(item['id'])}/>
+								<div className='postList'>
+									<p>Post id: { item['id'] }</p>
+									<p>Post timestamp: { item['timestamp'] }</p>
+									<p>Post title: { item['title'] }</p>
+									<p>Category body: { item['body'] }</p>
+									<p>Vote Score: { item['voteScore'] }</p>
+								</div>
+								<RaisedButton label="Upvote" primary={true} onClick={() => this.onUpVote(item['id'])}/>
+								<RaisedButton label="Downvote" secondary={true} onClick={() => this.onDownVote(item['id'])}/>
+								<div>
+									<CommentList
+										postId={ item['id'] }
+										match={match}
+									/>
+								</div>
 							</div>
-							<RaisedButton label="Upvote" primary={true} onClick={() => this.onUpVote(item['id'])}/>
-							<RaisedButton label="Downvote" secondary={true} onClick={() => this.onDownVote(item['id'])}/>
-							<div>
-								<CommentList
-									postId={ item['id'] }
-									match={match}
-								/>
-							</div>
+						)}
 						</div>
+						))
 					)}
-					</div>
-					))
-				)}
-				</ul>
-			</div>
+					</ul>
+				</div>
+			) : (
+				<div>
+					<PostForm post={this.state.editItem}/>
+				</div>
+			)}
+		</div>
 		)
 	}
 }

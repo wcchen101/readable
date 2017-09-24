@@ -42,7 +42,6 @@ class CommentList extends React.Component {
 		return (
 			<div>
 					<div>
-					{comment.length !== 0 }
 							<div>
 								<h2>Comment</h2>
 								{comment && (comment.map((item) => (
