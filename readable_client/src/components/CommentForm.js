@@ -6,12 +6,11 @@ import RaisedButton from 'material-ui/FlatButton';
 
 class CommentForm extends React.Component {
    state = {
-      id: '',
-      timestamp: '',
-      body: '',
-      author: '',
+      id: this.props.comment && this.props.comment.id,
+      timestamp: this.props.comment && this.props.comment.timestamp,
+      body: this.props.comment && this.props.comment.body,
+      author: this.props.comment && this.props.comment.author,
       parentId: this.props.postId,
-      editMode: false,
     }
 
   handleChange = (e) => {
@@ -23,7 +22,6 @@ class CommentForm extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
-    console.log('state', this.state)
     writeComment(this.state)
     window.location.reload()
   }

@@ -6,7 +6,6 @@ import { addPost } from '../actions'
 import CommentList from './CommentList'
 import { deletePost, upVotePost, downVotePost } from '../utils/readableAPI'
 import RaisedButton from 'material-ui/FlatButton';
-import editPostForm from './editPostForm'
 import PostForm from './PostForm'
 
 class PostList extends React.Component {
@@ -31,7 +30,6 @@ class PostList extends React.Component {
 	}
 	onEdit = (item) => {
 		console.log('click on edit', item)
-
 		this.setState({
 			editPostMode: true,
 			editItem: item,
@@ -53,7 +51,6 @@ class PostList extends React.Component {
 						<div>
 						{categoryName === item['category'] && (
 							<div className='postComponent'>
-								// <RaisedButton><Link to={`/${item['category']}/${item['id']}`}>Edit Post</Link></RaisedButton>
 								<RaisedButton onClick={() => this.onEdit(item)}>Edit Post</RaisedButton>
 								<RaisedButton label="Delete Post" secondary={true} onClick={() => this.deletePost(item['id'])}/>
 								<div className='postList'>

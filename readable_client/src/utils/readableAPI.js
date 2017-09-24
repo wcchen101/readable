@@ -33,7 +33,6 @@ export const deleteComment = (commentId) => {
     })
   })
 }
-
 export const writePost = (post) =>
   fetch(`${api}/posts`, { headers, method: 'POST',
   body: JSON.stringify({

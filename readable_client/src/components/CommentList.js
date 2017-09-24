@@ -6,10 +6,12 @@ import { addComment } from '../actions'
 import CommentForm from './CommentForm'
 import CommentUpdateForm from './CommentUpdateForm.js'
 import { fetchComment, deleteComment } from '../utils/readableAPI'
+import RaisedButton from 'material-ui/FlatButton';
 
 class CommentList extends React.Component {
 	state = {
-		comment: null,
+		editCommentMode: false,
+		editComment: null,
 	}
 	componentWillMount() {
     	this.props.addComment(this.props.postId)
@@ -28,36 +30,39 @@ class CommentList extends React.Component {
 		)
     window.location.reload()
 	}
+	onEditComment = (comment) => {
+		console.log('click on edit', comment)
+		this.setState({
+			editCommentMode: true,
+			editComment: comment,
+		})
+	}
 	render() {
-
 		const { postId, match } = this.props
 		const { comment } = this.props
-		let matchComment = undefined
-		if (this.props.match.params.comment) {
-			matchComment = this.props.match.params.comment
-		}
+		const { editCommentMode } = this.state
 		let category = match.url.slice(1, match.url.length - 1)
 		console.log('match comment', this.props.match.params.comment)
 		console.log('commentlist props', this.props)
 		return (
 			<div>
-					<div>
-							<div>
-								<h2>Comment</h2>
-								{comment && (comment.map((item) => (
-									<div>
-										<p>id: {item.id} </p>
-										<p>Timestamp: {item.timestamp} </p>
-										<p>Body: {item.body} </p>
-										<p>Author: {item.author} </p>
-										<p>Post Id: {item.parentId} </p>
-										<button onClick={() => this.onDelete(item.id) }>Delete</button>
-										<button><Link to={`/${category}/${postId}/${item.id}/`}>Edit Comment</Link></button>
-									</div>
-									))
-								)}
-							</div>
-							{matchComment === undefined ? (
+					{editCommentMode !== true ? (
+						<div>
+								<div>
+									<h2>Comment</h2>
+									{comment && (comment.map((item) => (
+										<div>
+											<p>id: {item.id} </p>
+											<p>Timestamp: {item.timestamp} </p>
+											<p>Body: {item.body} </p>
+											<p>Author: {item.author} </p>
+											<p>Post Id: {item.parentId} </p>
+											<RaisedButton label="Delete Comment" secondary={true} onClick={() => this.onDelete(item.id) }/>
+											<RaisedButton label="Edit Comment" primary={true} onClick={() => this.onEditComment(item)}></RaisedButton>
+										</div>
+										))
+									)}
+								</div>
 								<div>
 									<h3>Add New Comment</h3>
 									<CommentForm
@@ -65,15 +70,17 @@ class CommentList extends React.Component {
 										commentId={this.props.match.params.comment}
 									/>
 								</div>
-							) : (
-								<div>
-									<h3>Update Comment</h3>
-									<CommentUpdateForm
-										comment={comment}
-									/>
-								</div>
-							)}
 						</div>
+					) : (
+						<div>
+							<h3>Update Comment</h3>
+							<CommentForm
+							postId={postId}
+							commentId={this.props.match.params.comment}
+							comment={this.state.editComment}/>
+						</div>
+					)}
+
 			</div>
 		)
 	}

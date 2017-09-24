@@ -14,7 +14,6 @@ class CommentUpdateForm extends React.Component {
     this.setState({
       [name]: e.target.value,
     })
-    console.log('update state', this.state)
   }
   handleSubmit = (e) => {
     e.preventDefault()
