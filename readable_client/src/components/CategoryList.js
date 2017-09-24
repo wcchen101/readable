@@ -16,7 +16,7 @@ class CategoryList extends React.Component {
 		const { category } = this.props
 		const { match } =  this.props
 		const { comment } = this.props.match.params
-		console.log('category: ', this.props.match.params)
+
 		return (
 			<div>
 					<div>
@@ -68,7 +68,7 @@ function mapStateToProps (state, props) {
 }
 function mapDispatchToProps(dispatch) {
   return {
-    // addCategory: () => dispatch(fetchCategories()),
+
   }
 }
 export default connect(mapStateToProps, { addCategory })(CategoryList)

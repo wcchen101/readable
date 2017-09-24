@@ -20,14 +20,13 @@ class CommentList extends React.Component {
 		)
   }
 	onDelete = (id) => {
-		console.log('id', id)
 		deleteComment(id)
 		fetchComment(this.props.postId).then((comment) =>
 			this.setState(() => ({
 				comment: comment
 			}))
 		)
-		console.log('comment complete')
+    window.location.reload()
 	}
 	render() {
 

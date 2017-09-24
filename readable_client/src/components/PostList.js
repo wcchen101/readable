@@ -4,12 +4,17 @@ import { Route } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { addPost } from '../actions'
 import CommentList from './CommentList'
+import { deletePost } from '../utils/readableAPI'
 
 class PostList extends React.Component {
 	componentWillMount() {
     this.props.addPost()
   }
-
+	deletePost = (postId) => {
+		console.log('click', postId);
+		deletePost(postId)
+    window.location.reload()
+	}
 	render() {
 		const { categoryName, post } = this.props
 		const { match } =  this.props
@@ -24,6 +29,7 @@ class PostList extends React.Component {
 					{categoryName === item['category'] && (
 						<div className='postComponent'>
 							<button><Link to={`/${item['category']}/${item['id']}/`}>Edit Post</Link></button>
+							<button onClick={() => this.deletePost(item['id'])}>Delete Post</button>
 							<div className='postList'>
 								<p>Post id: { item['id'] }</p>
 								<p>Post timestamp: { item['timestamp'] }</p>
