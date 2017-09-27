@@ -6,6 +6,7 @@ import {
 	ADD_POST,
 	SET_COMMENT,
 	ADD_COMMENT,
+	UPDATE_VOTESCORE,
 } from '../actions'
 
 const initialState = {
@@ -23,9 +24,17 @@ export function category (state=[], action={}) {
 	}
 }
 export function post (state=[], action={}) {
+	console.log('reducer', action.type)
 	switch(action.type) {
 		case SET_POST:
-	      return action.post;
+				let undeletedPost = []
+				for (let i = 0; i < action.post.length; i++){
+					if (action.post[i].deleted !== true) {
+						console.log('undeleted')
+						undeletedPost.push(action.post[i])
+					}
+				}
+	      return undeletedPost;
 		default:
 			return state
 	}

@@ -4,7 +4,7 @@ import { Route } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { addPost } from '../actions'
 import CommentList from './CommentList'
-import { deletePost, upVotePost, downVotePost } from '../utils/readableAPI'
+import { deletePost, upVotePost, downVotePost, fetchPost } from '../utils/readableAPI'
 import RaisedButton from 'material-ui/FlatButton';
 import PostForm from './PostForm'
 
@@ -16,9 +16,20 @@ class PostList extends React.Component {
 	}
 	componentWillMount() {
     this.props.addPost()
+		fetchPost(this.props.postId).then((post) =>
+			this.setState(() => ({
+				post: post
+		}))
+	)
   }
 	deletePost = (postId) => {
+		console.log('delete', postId)
 		deletePost(postId)
+		fetchPost(postId).then((post) =>
+			this.setState(() => ({
+				post: post,
+			}))
+		)
     window.location.reload()
 	}
 	onUpVote = (postId) => {
@@ -107,8 +118,6 @@ class PostList extends React.Component {
 }
 
 function mapStateToProps(state, props) {
-	console.log('props: ', props)
-	console.log('state: ', state)
 	if (props.match.params.post && state.post.length !== 0) {
 		return {
 			post: [state.post.find(item => item.id === props.match.params.post)]

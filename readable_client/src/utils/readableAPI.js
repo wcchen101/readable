@@ -21,6 +21,11 @@ export const fetchPosts = () =>
   	.then(res => res.json())
   	.then(data => data)
 
+export const fetchPost = (postId) =>
+  fetch(`${api}/posts/${postId}`, { headers, method: 'GET'  })
+  	.then(res => res.json())
+  	.then(data => data)
+
 export const fetchComment = (postId) =>
   fetch(`${api}/posts/${postId}/comments`, { headers, method: 'GET' })
     .then((res) => res.json())
@@ -33,7 +38,7 @@ export const deleteComment = (commentId) => {
     })
   })
 }
-export const writePost = (post) =>
+export const writePost = (post) => {
   fetch(`${api}/posts`, { headers, method: 'POST',
   body: JSON.stringify({
     id: post.id,
@@ -42,10 +47,11 @@ export const writePost = (post) =>
     body: post.body,
     author: post.author,
     category: post.category,
+    })
   })
-})
+}
 
-export const writeComment = (comment) =>
+export const writeComment = (comment) => {
   fetch(`${api}/comments`, { headers, method: 'POST',
   body: JSON.stringify({
     id: comment.id,
@@ -53,16 +59,18 @@ export const writeComment = (comment) =>
     body: comment.body,
     author: comment.author,
     parentId: comment.parentId,
+    })
   })
-})
+}
 
-export const updateComment = (id, comment) =>
+export const updateComment = (id, comment) => {
   fetch(`${api}/comments/${id}`, { headers, method: 'PUT',
   body: JSON.stringify({
     timestamp: comment.preTimestamp,
     body: comment.preBody,
+    })
   })
-})
+}
 
 export const deletePost = (postId) => {
   fetch(`${api}/posts/${postId}`, { headers, method: 'DELETE',
