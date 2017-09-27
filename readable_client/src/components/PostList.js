@@ -11,6 +11,7 @@ import PostForm from './PostForm'
 class PostList extends React.Component {
 	state = {
 		editPostMode: false,
+		learnMoreMode: false,
 		editItem: this.props.post,
 	}
 	componentWillMount() {
@@ -34,31 +35,36 @@ class PostList extends React.Component {
 			editItem: item,
 		})
 	}
-	changeMode = () => {
+	changeMode = (e) => {
+		if (this.state.learnMoreMode === true) {
+			return
+		}
 		console.log('change mode')
 		this.setState({
-			editPostMode: true,
+			learnMoreMode: true,
 		})
 	}
 	render() {
 		const { categoryName, post } = this.props
 		const { match } =  this.props
-		const { editPostMode } = this.state
+		const { editPostMode, learnMoreMode } = this.state
 		post.sort((a, b) => {
 			return b.voteScore - a.voteScore;
 		})
 		return (
 			<div>
-			{ editPostMode !== true ? (
+
 				<div>
+				{editPostMode !== true ? (
+					<div>
 					<ul>
 					{post && (post.map((item) => (
 						<div>
 						{categoryName === item['category'] && (
 							<div className='postComponent'>
-							{ editPostMode !== true ? (
+							{ learnMoreMode !== true ? (
 								<div>
-								<RaisedButton href={'/' + item['category'] + '/' + item['id']} onClick={() => this.changeMode()}><Link to={`/${item['category']}/${item['id']}`}>Learn more</Link></RaisedButton>
+								<RaisedButton onClick={() => this.changeMode()}><Link to={`/${item['category']}/${item['id']}`}>Learn more</Link></RaisedButton>
 								</div>
 							) : (
 								<div>
@@ -73,26 +79,28 @@ class PostList extends React.Component {
 									<p>Category body: { item['body'] }</p>
 									<p>Vote Score: { item['voteScore'] }</p>
 								</div>
-								<RaisedButton label="Upvote" primary={true} onClick={() => this.onUpVote(item['id'])}/>
-								<RaisedButton label="Downvote" secondary={true} onClick={() => this.onDownVote(item['id'])}/>
-								<div>
-									<CommentList
-										postId={ item['id'] }
-										match={match}
-									/>
-								</div>
+
+									<RaisedButton label="Upvote" primary={true} onClick={() => this.onUpVote(item['id'])}/>
+									<RaisedButton label="Downvote" secondary={true} onClick={() => this.onDownVote(item['id'])}/>
+									<div>
+										<CommentList
+											postId={ item['id'] }
+											match={match}
+										/>
+									</div>
 							</div>
 						)}
 						</div>
 						))
 					)}
 					</ul>
+					</div>
+				) : (
+					<div>
+						<PostForm post={this.state.editItem}/>
+					</div>
+				)}
 				</div>
-			) : (
-				<div>
-					<PostForm post={this.state.editItem}/>
-				</div>
-			)}
 		</div>
 		)
 	}
