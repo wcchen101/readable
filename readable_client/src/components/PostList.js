@@ -90,7 +90,6 @@ class PostList extends React.Component {
 									<p>Category body: { item['body'] }</p>
 									<p>Vote Score: { item['voteScore'] }</p>
 								</div>
-
 									<RaisedButton label="Upvote" primary={true} onClick={() => this.onUpVote(item['id'])}/>
 									<RaisedButton label="Downvote" secondary={true} onClick={() => this.onDownVote(item['id'])}/>
 									<div>

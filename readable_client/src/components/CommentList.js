@@ -50,6 +50,7 @@ class CommentList extends React.Component {
 						<div>
 								<div>
 									<h2>Comment</h2>
+									<h4>Number of comment: {comment.length}</h4>
 									{comment && (comment.map((item) => (
 										<div>
 											<p>id: {item.id} </p>
