@@ -29,10 +29,15 @@ class PostList extends React.Component {
     window.location.reload()
 	}
 	onEdit = (item) => {
-		console.log('click on edit', item)
 		this.setState({
 			editPostMode: true,
 			editItem: item,
+		})
+	}
+	changeMode = () => {
+		console.log('change mode')
+		this.setState({
+			editPostMode: true,
 		})
 	}
 	render() {
@@ -51,8 +56,16 @@ class PostList extends React.Component {
 						<div>
 						{categoryName === item['category'] && (
 							<div className='postComponent'>
+							{ editPostMode !== true ? (
+								<div>
+								<RaisedButton href={'/' + item['category'] + '/' + item['id']} onClick={() => this.changeMode()}><Link to={`/${item['category']}/${item['id']}`}>Learn more</Link></RaisedButton>
+								</div>
+							) : (
+								<div>
 								<RaisedButton onClick={() => this.onEdit(item)}>Edit Post</RaisedButton>
 								<RaisedButton label="Delete Post" secondary={true} onClick={() => this.deletePost(item['id'])}/>
+								</div>
+							)}
 								<div className='postList'>
 									<p>Post id: { item['id'] }</p>
 									<p>Post timestamp: { item['timestamp'] }</p>

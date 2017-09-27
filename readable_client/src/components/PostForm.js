@@ -21,6 +21,12 @@ class PostForm extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
+    let categoryCheck = this.state.category
+    let categoryPool = ['react', 'redux', 'udacity']
+    if (categoryCheck !== 'react' && categoryCheck !== 'redux' && categoryCheck !== 'udacity') {
+      window.alert('No match cateogry, Please enter new one')
+      return
+    }
     writePost(this.state)
     window.location.reload()
   }
