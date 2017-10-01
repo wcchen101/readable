@@ -23,13 +23,15 @@ class PostList extends React.Component {
 	)
   }
 	deletePost = (postId) => {
+		const { history } = this.props
 		deletePost(postId)
 		fetchPost(postId).then((post) =>
 			this.setState(() => ({
 				post: post,
 			}))
 		)
-    window.location.reload()
+    // window.location.reload()
+		history.push(`/`)
 	}
 	onUpVote = (postId) => {
 		upVotePost(postId)
@@ -47,14 +49,13 @@ class PostList extends React.Component {
 	}
 	changeMode = (item) => {
 		const { history } = this.props
-    history.push(`/${item.category}/${item.id}`)
-
 		if (this.state.learnMoreMode === true) {
 			return
 		}
 		this.setState({
 			learnMoreMode: true,
 		})
+    history.push(`/${item.category}/${item.id}`)
 	}
 	sortVoteScore = (post) => {
 		let oldPost = this.props.post
