@@ -16,15 +16,15 @@ class CategoryList extends React.Component {
 		const { history } = this.props
 		history.push(`/`)
 	}
-	linkToMainPage = () => {
+	linkToReactPage = () => {
 		const { history } = this.props
 		history.push(`/react/`)
 	}
-	linkToMainPage = () => {
+	linkToReduxPage = () => {
 		const { history } = this.props
 		history.push(`/redux/`)
 	}
-	linkToMainPage = () => {
+	linkToUdacityPage = () => {
 		const { history } = this.props
 		history.push(`/udacity/`)
 	}
@@ -38,9 +38,9 @@ class CategoryList extends React.Component {
 			<div>
 					<div>
 						<RaisedButton onClick={() => this.linkToMainPage()}>Main Page</RaisedButton>
-	          <RaisedButton onClick={() => this.linkToMainPage()}>React</RaisedButton>
-	          <RaisedButton onClick={() => this.linkToMainPage()}>Redux</RaisedButton>
-	          <RaisedButton onClick={() => this.linkToMainPage()}>Udacity</RaisedButton>
+	          <RaisedButton onClick={() => this.linkToReactPage()}>React</RaisedButton>
+	          <RaisedButton onClick={() => this.linkToReduxPage()}>Redux</RaisedButton>
+	          <RaisedButton onClick={() => this.linkToUdacityPage()}>Udacity</RaisedButton>
 	          <RaisedButton href='#addNewPost'>New Post</RaisedButton>
 						<ul>
 						{category && category.length !== 0 && (category.map((item) => (
