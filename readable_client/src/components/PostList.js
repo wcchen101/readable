@@ -46,7 +46,10 @@ class PostList extends React.Component {
 			editItem: item,
 		})
 	}
-	changeMode = (e) => {
+	changeMode = (item) => {
+		const { history } = this.props
+    history.push(`/${item.category}/${item.id}`)
+
 		if (this.state.learnMoreMode === true) {
 			return
 		}
@@ -92,7 +95,7 @@ class PostList extends React.Component {
 							<div className='postComponent'>
 							{ learnMoreMode !== true ? (
 								<div>
-								<RaisedButton onClick={() => this.changeMode()}><Link to={`/${item['category']}/${item['id']}`}>Learn more</Link></RaisedButton>
+								<RaisedButton onClick={() => this.changeMode(item)}>Learn more</RaisedButton>
 								</div>
 							) : (
 								<div>
@@ -137,6 +140,8 @@ class PostList extends React.Component {
 }
 
 function mapStateToProps(state, props) {
+
+	console.log('history',props)
 	if (props.match.params.post && state.post.length !== 0) {
 		return {
 			post: [state.post.find(item => item.id === props.match.params.post)]

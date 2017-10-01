@@ -31,7 +31,6 @@ class CommentList extends React.Component {
     window.location.reload()
 	}
 	onEditComment = (comment) => {
-		console.log('click on edit', comment)
 		this.setState({
 			editCommentMode: true,
 			editComment: comment,

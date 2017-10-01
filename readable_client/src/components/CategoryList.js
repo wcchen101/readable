@@ -5,21 +5,43 @@ import { Route } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { addCategory, addPost } from '../actions'
 import { Link } from 'react-router-dom'
+import RaisedButton from 'material-ui/FlatButton';
 
 
 class CategoryList extends React.Component {
 	componentWillMount() {
     this.props.addCategory()
   }
+	linkToMainPage = () => {
+		const { history } = this.props
+		history.push(`/`)
+	}
+	linkToMainPage = () => {
+		const { history } = this.props
+		history.push(`/react/`)
+	}
+	linkToMainPage = () => {
+		const { history } = this.props
+		history.push(`/redux/`)
+	}
+	linkToMainPage = () => {
+		const { history } = this.props
+		history.push(`/udacity/`)
+	}
 
 	render () {
 		const { category } = this.props
-		const { match } =  this.props
+		const { match, history } =  this.props
 		const { comment } = this.props.match.params
 
 		return (
 			<div>
 					<div>
+						<RaisedButton onClick={() => this.linkToMainPage()}>Main Page</RaisedButton>
+	          <RaisedButton onClick={() => this.linkToMainPage()}>React</RaisedButton>
+	          <RaisedButton onClick={() => this.linkToMainPage()}>Redux</RaisedButton>
+	          <RaisedButton onClick={() => this.linkToMainPage()}>Udacity</RaisedButton>
+	          <RaisedButton href='#addNewPost'>New Post</RaisedButton>
 						<ul>
 						{category && category.length !== 0 && (category.map((item) => (
 							<Route path='' render={() => (
@@ -34,6 +56,7 @@ class CategoryList extends React.Component {
 										<PostList
 											categoryName = {item['name']}
 											match = {match}
+											history={history}
 										/>
 									</div>
 								</div>

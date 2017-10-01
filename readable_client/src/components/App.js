@@ -15,24 +15,18 @@ import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 
 class App extends Component {
+
   render() {
     return (
       <MuiThemeProvider>
         <div className="App">
           <AppBar title="My Readable" />
-          <FlatButton><Link to={`/`}>Main Page</Link></FlatButton>
-          <FlatButton><Link to={`/react/`}>React</Link></FlatButton>
-          <FlatButton><Link to={`/redux/`}>Redux</Link></FlatButton>
-          <FlatButton><Link to={`/udacity/`}>Udacity</Link></FlatButton>
-          <FlatButton ><a href='#addNewPost'>New Post</a></FlatButton>
           <Route exact path='/' component={CategoryList}/>
           <Route exact path='/:category' component={CategoryList}/>
           <Route exact path='/:category/:post' component={CategoryList}/>
           <Route exact path='/:category/:post/:comment' component={CategoryList}/>
         </div>
       </MuiThemeProvider>
-
-
     )
   }
 }
