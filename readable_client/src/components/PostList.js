@@ -23,7 +23,6 @@ class PostList extends React.Component {
 	)
   }
 	deletePost = (postId) => {
-		console.log('delete', postId)
 		deletePost(postId)
 		fetchPost(postId).then((post) =>
 			this.setState(() => ({
@@ -68,7 +67,6 @@ class PostList extends React.Component {
 	}
 	sortTimeStamp = (post) => {
 		let oldPost = this.props.post
-		console.log('timestamp', post)
 		oldPost.sort((a, b) => {
 			return b.timestamp - a.timestamp
 		})
@@ -84,7 +82,6 @@ class PostList extends React.Component {
 
 		return (
 			<div>
-
 				<div>
 				{editPostMode !== true ? (
 					<div>
@@ -141,8 +138,6 @@ class PostList extends React.Component {
 }
 
 function mapStateToProps(state, props) {
-
-	console.log('history',props)
 	if (props.match.params.post && state.post.length !== 0) {
 		return {
 			post: [state.post.find(item => item.id === props.match.params.post)]

@@ -64,7 +64,6 @@ export function addVoteScore(postId) {
 	}
 }
 
-
 export function addPost() {
 	return dispatch => {
 		fetch(`${api}/posts`, { headers, method: 'GET'  })
@@ -79,13 +78,7 @@ export function setCategoryPost(categoryPost) {
     categoryPost,
   }
 }
-// export function addCategoryPost(category) {
-// 	return dispatch => {
-// 		fetch(`${api}/${category}/posts`, { headers, method: 'GET' })
-// 			.then(res => res.json())
-// 			.then(data => dispatch(setCategoryPost(data)))
-// 	}
-// }
+
 export function setComment(comment) {
   return {
     type: SET_COMMENT,

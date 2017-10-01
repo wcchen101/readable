@@ -79,7 +79,6 @@ CategoryList.propTypes = {
 }
 
 function mapStateToProps (state, props) {
-	console.log('category props', props)
 	if (props.match.params.category && state.category.length !== 0) {
 		return {
 			category: [state.category.find(item => item.name === props.match.params.category )]

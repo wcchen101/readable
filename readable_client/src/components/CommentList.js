@@ -4,7 +4,6 @@ import { Route } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { addComment } from '../actions'
 import CommentForm from './CommentForm'
-import CommentUpdateForm from './CommentUpdateForm.js'
 import { fetchComment, deleteComment, upVoteComment, downVoteComment } from '../utils/readableAPI'
 import RaisedButton from 'material-ui/FlatButton';
 import './App.css'
@@ -51,7 +50,6 @@ class CommentList extends React.Component {
 		const { comment, learnMoreMode } = this.props
 		const { editCommentMode } = this.state
 		let category = match.url.slice(1, match.url.length - 1)
-		console.log('commnet', comment)
 		return (
 			<div>
 					{editCommentMode !== true ? (
