@@ -22,3 +22,13 @@ button {
   padding: 5px 5px;
   margin: 5px 5px;
 }
+.comment-container {
+  display: flex;
+  width: 100%;
+  height: auto;
+}
+.button-container {
+  display: flex;
+  width: 80%;
+  height: auto;
+}

@@ -7,6 +7,7 @@ import CommentForm from './CommentForm'
 import CommentUpdateForm from './CommentUpdateForm.js'
 import { fetchComment, deleteComment, upVoteComment, downVoteComment } from '../utils/readableAPI'
 import RaisedButton from 'material-ui/FlatButton';
+import './App.css'
 
 class CommentList extends React.Component {
 	state = {
@@ -55,9 +56,9 @@ class CommentList extends React.Component {
 			<div>
 					{editCommentMode !== true ? (
 						<div>
-								<div>
-									<h2>Comment</h2>
-									<h4>Number of comment: {comment.length}</h4>
+								<h2>Comment</h2>
+								<h4>Number of comment: {comment.length}</h4>
+								<div className='comment-container'>
 									{comment && (comment.map((item) => (
 										<div>
 											<p>id: {item.id} </p>
@@ -66,10 +67,12 @@ class CommentList extends React.Component {
 											<p>Author: {item.author} </p>
 											<p>Post Id: {item.parentId} </p>
 											<p>Vote Score: {item.voteScore} </p>
+											<div className='button-container'>
 											<RaisedButton label="Upvote" primary={true} onClick={() => this.onUpVote(item['id'])}/>
 											<RaisedButton label="Downvote" secondary={true} onClick={() => this.onDownVote(item['id'])}/>
 											<RaisedButton label="Delete Comment" secondary={true} onClick={() => this.onDelete(item.id) }/>
 											<RaisedButton label="Edit Comment" primary={true} onClick={() => this.onEditComment(item)}></RaisedButton>
+											</div>
 										</div>
 										))
 									)
@@ -97,10 +100,8 @@ class CommentList extends React.Component {
 						<div>
 						</div>
 					)}
-
 			</div>
 		)
-
 	}
 }
 
