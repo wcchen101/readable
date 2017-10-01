@@ -95,3 +95,18 @@ export const downVotePost = (postId) => {
     })
   })
 }
+export const upVoteComment = (commentId) => {
+  fetch(`${api}/comments/${commentId}`, { headers, method: 'POST',
+  body: JSON.stringify({
+    option: 'upVote',
+    })
+  })
+}
+
+export const downVoteComment = (commentId) => {
+  fetch(`${api}/comments/${commentId}`, { headers, method: 'POST',
+  body: JSON.stringify({
+    option: 'downVote',
+    })
+  })
+}

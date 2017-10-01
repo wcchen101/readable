@@ -78,12 +78,7 @@ class PostList extends React.Component {
 		const { categoryName, post } = this.props
 		const { match } =  this.props
 		const { editPostMode, learnMoreMode } = this.state
-		// post.sort((a, b) => {
-		// 	return b.voteScore - a.voteScore;
-		// })
-		// post.sort((a, b) => {
-		// 	return b.timestamp - a.timestamp
-		// })
+
 		return (
 			<div>
 

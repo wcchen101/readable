@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { addComment } from '../actions'
 import CommentForm from './CommentForm'
 import CommentUpdateForm from './CommentUpdateForm.js'
-import { fetchComment, deleteComment } from '../utils/readableAPI'
+import { fetchComment, deleteComment, upVoteComment, downVoteComment } from '../utils/readableAPI'
 import RaisedButton from 'material-ui/FlatButton';
 
 class CommentList extends React.Component {
@@ -37,13 +37,20 @@ class CommentList extends React.Component {
 			editComment: comment,
 		})
 	}
+	onUpVote = (commentId) => {
+		upVoteComment(commentId)
+    window.location.reload()
+	}
+	onDownVote = (commentId) => {
+		downVoteComment(commentId)
+    window.location.reload()
+	}
 	render() {
 		const { postId, match } = this.props
 		const { comment } = this.props
 		const { editCommentMode } = this.state
 		let category = match.url.slice(1, match.url.length - 1)
-		console.log('match comment', this.props.match.params.comment)
-		console.log('commentlist props', this.props)
+		console.log('commnet', comment)
 		return (
 			<div>
 					{editCommentMode !== true ? (
@@ -58,6 +65,9 @@ class CommentList extends React.Component {
 											<p>Body: {item.body} </p>
 											<p>Author: {item.author} </p>
 											<p>Post Id: {item.parentId} </p>
+											<p>Vote Score: {item.voteScore} </p>
+											<RaisedButton label="Upvote" primary={true} onClick={() => this.onUpVote(item['id'])}/>
+											<RaisedButton label="Downvote" secondary={true} onClick={() => this.onDownVote(item['id'])}/>
 											<RaisedButton label="Delete Comment" secondary={true} onClick={() => this.onDelete(item.id) }/>
 											<RaisedButton label="Edit Comment" primary={true} onClick={() => this.onEditComment(item)}></RaisedButton>
 										</div>
