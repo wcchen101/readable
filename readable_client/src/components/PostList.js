@@ -50,18 +50,40 @@ class PostList extends React.Component {
 		if (this.state.learnMoreMode === true) {
 			return
 		}
-		console.log('change mode')
 		this.setState({
 			learnMoreMode: true,
 		})
 	}
+	sortVoteScore = (post) => {
+		let oldPost = this.props.post
+		oldPost.sort((a, b) => {
+			return b.voteScore - a.voteScore;
+		})
+		this.setState({
+			post: oldPost,
+		})
+	}
+	sortTimeStamp = (post) => {
+		let oldPost = this.props.post
+		console.log('timestamp', post)
+		oldPost.sort((a, b) => {
+			return b.timestamp - a.timestamp
+		})
+		this.setState({
+			post: oldPost,
+		})
+	}
+
 	render() {
 		const { categoryName, post } = this.props
 		const { match } =  this.props
 		const { editPostMode, learnMoreMode } = this.state
-		post.sort((a, b) => {
-			return b.voteScore - a.voteScore;
-		})
+		// post.sort((a, b) => {
+		// 	return b.voteScore - a.voteScore;
+		// })
+		// post.sort((a, b) => {
+		// 	return b.timestamp - a.timestamp
+		// })
 		return (
 			<div>
 
@@ -71,7 +93,7 @@ class PostList extends React.Component {
 					<ul>
 					{post && (post.map((item) => (
 						<div>
-						{categoryName === item['category'] && (
+						{item !== undefined && categoryName === item['category'] && (
 							<div className='postComponent'>
 							{ learnMoreMode !== true ? (
 								<div>
@@ -87,11 +109,14 @@ class PostList extends React.Component {
 									<p>Post id: { item['id'] }</p>
 									<p>Post timestamp: { item['timestamp'] }</p>
 									<p>Post title: { item['title'] }</p>
+									<p>Post author: { item['author']}</p>
 									<p>Category body: { item['body'] }</p>
 									<p>Vote Score: { item['voteScore'] }</p>
 								</div>
 									<RaisedButton label="Upvote" primary={true} onClick={() => this.onUpVote(item['id'])}/>
 									<RaisedButton label="Downvote" secondary={true} onClick={() => this.onDownVote(item['id'])}/>
+									<RaisedButton label="Sort by timestamp" onClick={() => this.sortTimeStamp(item)}/>
+									<RaisedButton label="Sort by votescore" onClick={() => this.sortVoteScore(item)}/>
 									<div>
 										<CommentList
 											postId={ item['id'] }

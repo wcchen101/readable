@@ -68,7 +68,6 @@ function mapStateToProps (state, props) {
 }
 function mapDispatchToProps(dispatch) {
   return {
-
   }
 }
 export default connect(mapStateToProps, { addCategory })(CategoryList)
