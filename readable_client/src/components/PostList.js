@@ -119,6 +119,7 @@ class PostList extends React.Component {
 										<CommentList
 											postId={ item['id'] }
 											match={match}
+											learnMoreMode={learnMoreMode}
 										/>
 									</div>
 							</div>

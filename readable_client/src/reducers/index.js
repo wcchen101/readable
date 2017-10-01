@@ -24,9 +24,12 @@ export function category (state=[], action={}) {
 	}
 }
 export function post (state=[], action={}) {
-	console.log('reducer', action.type)
+	console.log('reducer', action)
 	switch(action.type) {
 		case SET_POST:
+				if (action.comment) {
+					state.concat(action.comment)
+				}
 				let undeletedPost = []
 				for (let i = 0; i < action.post.length; i++){
 					if (action.post[i].deleted !== true) {

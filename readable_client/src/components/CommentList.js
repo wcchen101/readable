@@ -44,9 +44,10 @@ class CommentList extends React.Component {
 		downVoteComment(commentId)
     window.location.reload()
 	}
+
 	render() {
 		const { postId, match } = this.props
-		const { comment } = this.props
+		const { comment, learnMoreMode } = this.props
 		const { editCommentMode } = this.state
 		let category = match.url.slice(1, match.url.length - 1)
 		console.log('commnet', comment)
@@ -71,14 +72,8 @@ class CommentList extends React.Component {
 											<RaisedButton label="Edit Comment" primary={true} onClick={() => this.onEditComment(item)}></RaisedButton>
 										</div>
 										))
-									)}
-								</div>
-								<div>
-									<h3>Add New Comment</h3>
-									<CommentForm
-										postId={postId}
-										commentId={this.props.match.params.comment}
-									/>
+									)
+								}
 								</div>
 						</div>
 					) : (
@@ -90,13 +85,26 @@ class CommentList extends React.Component {
 							comment={this.state.editComment}/>
 						</div>
 					)}
+					{learnMoreMode === true ? (
+						<div>
+							<h3>Add New Comment</h3>
+							<CommentForm
+								postId={postId}
+								commentId={this.props.match.params.comment}
+							/>
+						</div>
+					) : (
+						<div>
+						</div>
+					)}
 
 			</div>
 		)
+
 	}
 }
+
 function mapStateToProps (state, props) {
-	console.log('props comment', props.comment)
 	if (props.match.params.comment && state.comment.length !== 0) {
 		return {
 			comment: [state.comment.find(item => item.id === props.match.params.comment)]
