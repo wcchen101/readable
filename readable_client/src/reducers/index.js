@@ -13,6 +13,7 @@ import {
 	POST_DOWN_VOTESCORE,
 	POST_NEW_COMMENT,
 	DELETE_COMMENT,
+	DELETE_POST,
 } from '../actions'
 
 const initialState = {
@@ -44,6 +45,12 @@ export function post (state=[], action={}) {
 				}
 	      return undeletedPost;
 
+		case DELETE_POST:
+			const removeIndex = action.index
+			return [
+				...state.slice(0, removeIndex),
+				...state.slice(removeIndex + 1)
+			]
 		case POST_UP_VOTESCORE:
 			index = action.index
 			return [
@@ -79,7 +86,6 @@ export function comment (state=[], action={}) {
 			return action.comment;
 
 		case POST_NEW_COMMENT:
-			console.log(action)
 			return [
 				...state,
 				{
@@ -92,7 +98,6 @@ export function comment (state=[], action={}) {
 				}
 			]
 		case DELETE_COMMENT:
-			console.log('delete comment',action)
 			const removeIndex = action.index
 			return [
 				...state.slice(0, removeIndex),

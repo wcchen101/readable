@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { Route } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { addPost, postUpVoteScore, postDownVoteScore } from '../actions'
+import { addPost, postUpVoteScore, postDownVoteScore, removePost } from '../actions'
 import CommentList from './CommentList'
 import { deletePost, upVotePost, downVotePost, fetchPost } from '../utils/readableAPI'
 import RaisedButton from 'material-ui/FlatButton';
@@ -22,14 +22,10 @@ class PostList extends React.Component {
 		}))
 	)
   }
-	deletePost = (postId) => {
+	deletePost = (postId, index) => {
 		const { history } = this.props
+		this.props.removePost(index)
 		deletePost(postId)
-		fetchPost(postId).then((post) =>
-			this.setState(() => ({
-				post: post,
-			}))
-		)
 		history.push(`/`)
 	}
 	onUpVote = (postId, index) => {
@@ -97,7 +93,7 @@ class PostList extends React.Component {
 							) : (
 								<div>
 								<RaisedButton onClick={() => this.onEdit(item)}>Edit Post</RaisedButton>
-								<RaisedButton label="Delete Post" secondary={true} onClick={() => this.deletePost(item['id'])}/>
+								<RaisedButton label="Delete Post" secondary={true} onClick={() => this.deletePost(item['id'], index)}/>
 								</div>
 							)}
 								<div className='postList'>
@@ -147,4 +143,4 @@ function mapStateToProps(state, props) {
 		post: state.post,
 	}
 }
-export default connect(mapStateToProps, { addPost, postUpVoteScore, postDownVoteScore })(PostList)
+export default connect(mapStateToProps, { addPost, postUpVoteScore, postDownVoteScore, removePost })(PostList)
