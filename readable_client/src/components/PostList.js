@@ -37,6 +37,7 @@ class PostList extends React.Component {
 		downVotePost(postId)
 	}
 	onEdit = (item) => {
+		console.log('edit', item)
 		this.setState({
 			editPostMode: true,
 			editItem: item,
@@ -124,7 +125,10 @@ class PostList extends React.Component {
 					</div>
 				) : (
 					<div>
-						<PostForm post={this.state.editItem}/>
+						<h3>Update Post</h3>
+						<PostForm
+							post={this.state.editItem}
+							/>
 					</div>
 				)}
 				</div>

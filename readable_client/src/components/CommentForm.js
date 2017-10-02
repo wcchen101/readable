@@ -70,8 +70,6 @@ class CommentForm extends React.Component {
 }
 function mapStateToProps(state, props) {
   return {
-		comment: state.comment,
 	}
 }
-// export default CommentForm
 export default connect(mapStateToProps, { postNewComment })(CommentForm)

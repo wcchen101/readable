@@ -18,6 +18,7 @@ export const POST_DOWN_VOTESCORE = 'POST_DOWN_VOTESCORE'
 export const POST_NEW_COMMENT = 'POST_NEW_COMMENT'
 export const DELETE_COMMENT = 'DELETE_COMMENT'
 export const DELETE_POST = 'DELETE_POST'
+export const POST_NEW_POST = 'POST_NEW_POST'
 
 const api = process.env.REACT_APP_CONTACTS_API_URL || 'http://localhost:5002'
 
@@ -144,5 +145,16 @@ export function removePost(index) {
   return {
     type: 'DELETE_POST',
     index
+  }
+}
+export function postNewPost(id, timestamp, title, body, author, category) {
+  return {
+    type: 'POST_NEW_POST',
+    id,
+    timestamp,
+    title,
+    body,
+    author,
+    category,
   }
 }

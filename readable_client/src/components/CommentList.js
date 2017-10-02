@@ -88,12 +88,13 @@ class CommentList extends React.Component {
 							comment={this.state.editComment}/>
 						</div>
 					)}
-					{learnMoreMode === true ? (
+					{learnMoreMode === true && editCommentMode !== true ? (
 						<div>
 							<h3>Add New Comment</h3>
 							<CommentForm
 								postId={postId}
 								commentId={this.props.match.params.comment}
+								comment={this.state.editComment}
 							/>
 						</div>
 					) : (

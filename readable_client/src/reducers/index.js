@@ -14,6 +14,7 @@ import {
 	POST_NEW_COMMENT,
 	DELETE_COMMENT,
 	DELETE_POST,
+	POST_NEW_POST,
 } from '../actions'
 
 const initialState = {
@@ -51,6 +52,22 @@ export function post (state=[], action={}) {
 				...state.slice(0, removeIndex),
 				...state.slice(removeIndex + 1)
 			]
+
+		case POST_NEW_POST:
+			console.log('post new post', action)
+			return [
+				...state,
+				{
+					id: action.id,
+					timestamp: action.timestamp,
+					title: action.title,
+					body: action.body,
+					author: action.author,
+					category: action.category,
+					voteScore: 1,
+				}
+			]
+
 		case POST_UP_VOTESCORE:
 			index = action.index
 			return [
@@ -66,7 +83,6 @@ export function post (state=[], action={}) {
 				{...state[index], voteScore: state[index].voteScore - 1},
 				...state.slice(index + 1),
 			]
-
 		default:
 			return state
 	}
