@@ -74,7 +74,7 @@ class PostList extends React.Component {
 
 	render() {
 		const { categoryName, post } = this.props
-		const { match } =  this.props
+		const { match, history } =  this.props
 		const { editPostMode, learnMoreMode } = this.state
 
 		return (
@@ -128,6 +128,7 @@ class PostList extends React.Component {
 						<h3>Update Post</h3>
 						<PostForm
 							post={this.state.editItem}
+							history={history}
 							/>
 					</div>
 				)}

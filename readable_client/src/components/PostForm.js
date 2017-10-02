@@ -39,6 +39,7 @@ class PostForm extends React.Component {
     this.props.postNewPost(id, timestamp, title, body, author, category)
     writePost(this.state)
     this.refs.postForm.reset()
+    history.push('/' + category)
     // window.location.reload()
   }
   render() {
