@@ -80,7 +80,7 @@ class PostList extends React.Component {
 		const { categoryName, post } = this.props
 		const { match } =  this.props
 		const { editPostMode, learnMoreMode } = this.state
-
+		let commentIndex = 0
 		return (
 			<div>
 				<div>
@@ -118,6 +118,7 @@ class PostList extends React.Component {
 											postId={ item['id'] }
 											match={match}
 											learnMoreMode={learnMoreMode}
+											commentIndex={commentIndex}
 										/>
 									</div>
 							</div>

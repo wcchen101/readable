@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { Route } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { addComment } from '../actions'
+import { addComment, upVoteScore, downVoteScore } from '../actions'
 import CommentForm from './CommentForm'
 import { fetchComment, deleteComment, upVoteComment, downVoteComment } from '../utils/readableAPI'
 import RaisedButton from 'material-ui/FlatButton';
@@ -36,20 +36,21 @@ class CommentList extends React.Component {
 			editComment: comment,
 		})
 	}
-	onUpVote = (commentId) => {
+	onUpVote = (commentId, index) => {
+		this.props.upVoteScore(index)
 		upVoteComment(commentId)
-    window.location.reload()
 	}
-	onDownVote = (commentId) => {
+	onDownVote = (commentId, index) => {
+		this.props.downVoteScore(index)
 		downVoteComment(commentId)
-    window.location.reload()
 	}
-
 	render() {
 		const { postId, match } = this.props
-		const { comment, learnMoreMode } = this.props
+		const { comment, learnMoreMode, commentIndex } = this.props
 		const { editCommentMode } = this.state
 		let category = match.url.slice(1, match.url.length - 1)
+
+		console.log('this props', this.props)
 		return (
 			<div>
 					{editCommentMode !== true ? (
@@ -57,7 +58,7 @@ class CommentList extends React.Component {
 								<h2>Comment</h2>
 								<h4>Number of comment: {comment.length}</h4>
 								<div className='comment-container'>
-									{comment && (comment.map((item) => (
+									{comment && (comment.map((item, i) => (
 										<div>
 											<p>id: {item.id} </p>
 											<p>Timestamp: {item.timestamp} </p>
@@ -66,8 +67,8 @@ class CommentList extends React.Component {
 											<p>Post Id: {item.parentId} </p>
 											<p>Vote Score: {item.voteScore} </p>
 											<div className='button-container'>
-											<RaisedButton label="Upvote" primary={true} onClick={() => this.onUpVote(item['id'])}/>
-											<RaisedButton label="Downvote" secondary={true} onClick={() => this.onDownVote(item['id'])}/>
+											<RaisedButton label="Upvote" primary={true} onClick={() => this.onUpVote(item.id, i)}/>
+											<RaisedButton label="Downvote" secondary={true} onClick={() => this.onDownVote(item.id, i)}/>
 											<RaisedButton label="Delete Comment" secondary={true} onClick={() => this.onDelete(item.id) }/>
 											<RaisedButton label="Edit Comment" primary={true} onClick={() => this.onEditComment(item)}></RaisedButton>
 											</div>
@@ -113,4 +114,4 @@ function mapStateToProps (state, props) {
 		comment: state.comment,
 	}
 }
-export default connect(mapStateToProps, { addComment })(CommentList)
+export default connect(mapStateToProps, { addComment, upVoteScore, downVoteScore })(CommentList)

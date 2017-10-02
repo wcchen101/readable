@@ -10,6 +10,8 @@ export const ADD_POST = 'ADD_POST'
 export const SET_CATEGORY_POST = 'SET_CATEGORY_POST'
 export const ADD_COMMENT = 'ADD_COMMENT'
 export const SET_COMMENT = 'SET_COMMENT'
+export const UP_VOTESCORE = 'UP_VOTESCORE'
+export const DOWN_VOTESCORE = 'DOWN_VOTESCORE'
 export const UPDATE_VOTESCORE = 'UPDATE_VOTESCORE'
 
 const api = process.env.REACT_APP_CONTACTS_API_URL || 'http://localhost:5002'
@@ -46,13 +48,6 @@ export function setPost(post) {
 	}
 }
 
-export function updateVoteScore(postId) {
-  return {
-    type: UPDATE_VOTESCORE,
-    postId,
-  }
-}
-
 export function addVoteScore(postId) {
 	return dispatch => {
 		fetch(`${api}/posts/${postId}`, { headers, method: 'POST',   body: JSON.stringify({
@@ -64,6 +59,12 @@ export function addVoteScore(postId) {
 	}
 }
 
+export function updateVoteScore(postId) {
+  return {
+    type: UPDATE_VOTESCORE,
+    postId,
+  }
+}
 export function addPost() {
 	return dispatch => {
 		fetch(`${api}/posts`, { headers, method: 'GET'  })
@@ -83,6 +84,18 @@ export function setComment(comment) {
   return {
     type: SET_COMMENT,
     comment
+  }
+}
+export function upVoteScore(index) {
+  return {
+    type: UP_VOTESCORE,
+    index
+  }
+}
+export function downVoteScore(index) {
+  return {
+    type: DOWN_VOTESCORE,
+    index
   }
 }
 export function addComment(postId) {

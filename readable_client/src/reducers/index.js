@@ -7,6 +7,8 @@ import {
 	SET_COMMENT,
 	ADD_COMMENT,
 	UPDATE_VOTESCORE,
+	UP_VOTESCORE,
+	DOWN_VOTESCORE,
 } from '../actions'
 
 const initialState = {
@@ -40,10 +42,36 @@ export function post (state=[], action={}) {
 			return state
 	}
 }
+
+export function updateVoteScore(postId) {
+  return {
+    type: UPDATE_VOTESCORE,
+    postId,
+  }
+}
+
 export function comment (state=[], action={}) {
+	let index = 0
 	switch(action.type) {
 		case SET_COMMENT:
 			return action.comment;
+
+		case UP_VOTESCORE:
+			index = action.index
+			return [
+				...state.slice(0, index),
+				{...state[index], voteScore: state[index].voteScore + 1},
+				...state.slice(index + 1),
+			]
+
+		case DOWN_VOTESCORE:
+			index = action.index
+			return [
+				...state.slice(0, index),
+				{...state[index], voteScore: state[index].voteScore - 1},
+				...state.slice(index + 1),
+			]
+
 		default:
 			return state
 	}
