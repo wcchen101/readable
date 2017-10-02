@@ -46,7 +46,7 @@ class CommentList extends React.Component {
 	}
 	render() {
 		const { postId, match } = this.props
-		const { comment, learnMoreMode, commentIndex } = this.props
+		const { comment, learnMoreMode } = this.props
 		const { editCommentMode } = this.state
 		let category = match.url.slice(1, match.url.length - 1)
 

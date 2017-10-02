@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { Route } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { addPost } from '../actions'
+import { addPost, postUpVoteScore, postDownVoteScore } from '../actions'
 import CommentList from './CommentList'
 import { deletePost, upVotePost, downVotePost, fetchPost } from '../utils/readableAPI'
 import RaisedButton from 'material-ui/FlatButton';
@@ -30,16 +30,15 @@ class PostList extends React.Component {
 				post: post,
 			}))
 		)
-    // window.location.reload()
 		history.push(`/`)
 	}
-	onUpVote = (postId) => {
+	onUpVote = (postId, index) => {
+		this.props.postUpVoteScore(index)
 		upVotePost(postId)
-    window.location.reload()
 	}
-	onDownVote = (postId) => {
+	onDownVote = (postId, index) => {
+		this.props.postDownVoteScore(index)
 		downVotePost(postId)
-    window.location.reload()
 	}
 	onEdit = (item) => {
 		this.setState({
@@ -80,14 +79,14 @@ class PostList extends React.Component {
 		const { categoryName, post } = this.props
 		const { match } =  this.props
 		const { editPostMode, learnMoreMode } = this.state
-		let commentIndex = 0
+
 		return (
 			<div>
 				<div>
 				{editPostMode !== true ? (
 					<div>
 					<ul>
-					{post && (post.map((item) => (
+					{post && (post.map((item, index) => (
 						<div>
 						{item !== undefined && categoryName === item['category'] && (
 							<div className='postComponent'>
@@ -109,8 +108,8 @@ class PostList extends React.Component {
 									<p>Category body: { item['body'] }</p>
 									<p>Vote Score: { item['voteScore'] }</p>
 								</div>
-									<RaisedButton label="Upvote" primary={true} onClick={() => this.onUpVote(item['id'])}/>
-									<RaisedButton label="Downvote" secondary={true} onClick={() => this.onDownVote(item['id'])}/>
+									<RaisedButton label="Upvote" primary={true} onClick={() => this.onUpVote(item['id'], index)}/>
+									<RaisedButton label="Downvote" secondary={true} onClick={() => this.onDownVote(item['id'], index)}/>
 									<RaisedButton label="Sort by timestamp" onClick={() => this.sortTimeStamp(item)}/>
 									<RaisedButton label="Sort by votescore" onClick={() => this.sortVoteScore(item)}/>
 									<div>
@@ -118,7 +117,6 @@ class PostList extends React.Component {
 											postId={ item['id'] }
 											match={match}
 											learnMoreMode={learnMoreMode}
-											commentIndex={commentIndex}
 										/>
 									</div>
 							</div>
@@ -149,4 +147,4 @@ function mapStateToProps(state, props) {
 		post: state.post,
 	}
 }
-export default connect(mapStateToProps, { addPost })(PostList)
+export default connect(mapStateToProps, { addPost, postUpVoteScore, postDownVoteScore })(PostList)

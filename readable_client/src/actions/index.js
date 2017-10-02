@@ -13,6 +13,8 @@ export const SET_COMMENT = 'SET_COMMENT'
 export const UP_VOTESCORE = 'UP_VOTESCORE'
 export const DOWN_VOTESCORE = 'DOWN_VOTESCORE'
 export const UPDATE_VOTESCORE = 'UPDATE_VOTESCORE'
+export const POST_UP_VOTESCORE = 'POST_UP_VOTESCORE'
+export const POST_DOWN_VOTESCORE = 'POST_DOWN_VOTESCORE'
 
 const api = process.env.REACT_APP_CONTACTS_API_URL || 'http://localhost:5002'
 
@@ -95,6 +97,18 @@ export function upVoteScore(index) {
 export function downVoteScore(index) {
   return {
     type: DOWN_VOTESCORE,
+    index
+  }
+}
+export function postUpVoteScore(index) {
+  return {
+    type: POST_UP_VOTESCORE,
+    index
+  }
+}
+export function postDownVoteScore(index) {
+  return {
+    type: POST_DOWN_VOTESCORE,
     index
   }
 }
