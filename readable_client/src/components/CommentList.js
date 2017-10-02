@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { Route } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { addComment, upVoteScore, downVoteScore } from '../actions'
+import { addComment, upVoteScore, downVoteScore, removeComment } from '../actions'
 import CommentForm from './CommentForm'
 import { fetchComment, deleteComment, upVoteComment, downVoteComment } from '../utils/readableAPI'
 import RaisedButton from 'material-ui/FlatButton';
@@ -21,14 +21,15 @@ class CommentList extends React.Component {
 			}))
 		)
   }
-	onDelete = (id) => {
+	onDelete = (id, index) => {
+		this.props.removeComment(id, index)
 		deleteComment(id)
-		fetchComment(this.props.postId).then((comment) =>
-			this.setState(() => ({
-				comment: comment
-			}))
-		)
-    window.location.reload()
+		// fetchComment(this.props.postId).then((comment) =>
+		// 	this.setState(() => ({
+		// 		comment: comment
+		// 	}))
+		// )
+    // window.location.reload()
 	}
 	onEditComment = (comment) => {
 		this.setState({
@@ -58,7 +59,7 @@ class CommentList extends React.Component {
 								<h2>Comment</h2>
 								<h4>Number of comment: {comment.length}</h4>
 								<div className='comment-container'>
-									{comment !== undefined && comment && (comment.map((item, i) => (
+									{comment !== undefined && comment && (comment.map((item, index) => (
 										<div>
 											<p>id: {item.id} </p>
 											<p>Timestamp: {item.timestamp} </p>
@@ -67,9 +68,9 @@ class CommentList extends React.Component {
 											<p>Post Id: {item.parentId} </p>
 											<p>Vote Score: {item.voteScore} </p>
 											<div className='button-container'>
-											<RaisedButton label="Upvote" primary={true} onClick={() => this.onUpVote(item.id, i)}/>
-											<RaisedButton label="Downvote" secondary={true} onClick={() => this.onDownVote(item.id, i)}/>
-											<RaisedButton label="Delete Comment" secondary={true} onClick={() => this.onDelete(item.id) }/>
+											<RaisedButton label="Upvote" primary={true} onClick={() => this.onUpVote(item.id, index)}/>
+											<RaisedButton label="Downvote" secondary={true} onClick={() => this.onDownVote(item.id, index)}/>
+											<RaisedButton label="Delete Comment" secondary={true} onClick={() => this.onDelete(item.id, index) }/>
 											<RaisedButton label="Edit Comment" primary={true} onClick={() => this.onEditComment(item)}></RaisedButton>
 											</div>
 										</div>
@@ -114,4 +115,4 @@ function mapStateToProps (state, props) {
 		comment: state.comment,
 	}
 }
-export default connect(mapStateToProps, { addComment, upVoteScore, downVoteScore })(CommentList)
+export default connect(mapStateToProps, { addComment, upVoteScore, downVoteScore, removeComment })(CommentList)
