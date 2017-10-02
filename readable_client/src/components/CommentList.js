@@ -58,7 +58,7 @@ class CommentList extends React.Component {
 								<h2>Comment</h2>
 								<h4>Number of comment: {comment.length}</h4>
 								<div className='comment-container'>
-									{comment && (comment.map((item, i) => (
+									{comment !== undefined && comment && (comment.map((item, i) => (
 										<div>
 											<p>id: {item.id} </p>
 											<p>Timestamp: {item.timestamp} </p>

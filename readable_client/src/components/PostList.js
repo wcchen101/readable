@@ -88,7 +88,7 @@ class PostList extends React.Component {
 					<ul>
 					{post && (post.map((item, index) => (
 						<div>
-						{item !== undefined && categoryName === item['category'] && (
+						{item !== undefined && item && categoryName === item['category'] && (
 							<div className='postComponent'>
 							{ learnMoreMode !== true ? (
 								<div>

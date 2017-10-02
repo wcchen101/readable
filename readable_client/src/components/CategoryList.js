@@ -88,8 +88,4 @@ function mapStateToProps (state, props) {
     category: state.category
   }
 }
-function mapDispatchToProps(dispatch) {
-  return {
-  }
-}
 export default connect(mapStateToProps, { addCategory })(CategoryList)
