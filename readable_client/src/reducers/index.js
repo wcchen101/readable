@@ -11,6 +11,7 @@ import {
 	DOWN_VOTESCORE,
 	POST_UP_VOTESCORE,
 	POST_DOWN_VOTESCORE,
+	POST_NEW_COMMENT,
 } from '../actions'
 
 const initialState = {
@@ -76,6 +77,19 @@ export function comment (state=[], action={}) {
 		case SET_COMMENT:
 			return action.comment;
 
+		case POST_NEW_COMMENT:
+			console.log(action)
+			return [
+				...state,
+				{
+					id: action.id,
+					timestamp: action.timestamp,
+					body: action.body,
+					author: action.author,
+					parentId: action.parentId,
+					voteScore: 1,
+				}
+			]
 		case UP_VOTESCORE:
 			index = action.index
 			return [

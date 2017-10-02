@@ -15,6 +15,7 @@ export const DOWN_VOTESCORE = 'DOWN_VOTESCORE'
 export const UPDATE_VOTESCORE = 'UPDATE_VOTESCORE'
 export const POST_UP_VOTESCORE = 'POST_UP_VOTESCORE'
 export const POST_DOWN_VOTESCORE = 'POST_DOWN_VOTESCORE'
+export const POST_NEW_COMMENT = 'POST_NEW_COMMENT'
 
 const api = process.env.REACT_APP_CONTACTS_API_URL || 'http://localhost:5002'
 
@@ -117,5 +118,16 @@ export function addComment(postId) {
     fetch(`${api}/posts/${postId}/comments`, { headers, method: 'GET' })
       .then(res => res.json())
       .then(data => dispatch(setComment(data)))
+  }
+}
+export function postNewComment(id, timestamp, body, author, parentId) {
+  console.log('post new comment')
+  return {
+    type: 'POST_NEW_COMMENT',
+    id,
+    timestamp,
+    body,
+    author,
+    parentId
   }
 }

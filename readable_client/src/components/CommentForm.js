@@ -3,6 +3,7 @@ import { writeComment } from '../utils/readableAPI'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import RaisedButton from 'material-ui/FlatButton';
+import { postNewComment } from '../actions'
 
 class CommentForm extends React.Component {
    state = {
@@ -22,38 +23,44 @@ class CommentForm extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
+    const id = this.refs.id.value
+    const timestamp = this.refs.timestamp.value
+    const body = this.refs.body.value
+    const author = this.refs.author.value
+    const parentId = this.props.postId
+    this.props.postNewComment(id, timestamp, body, author, parentId)
     writeComment(this.state)
-    window.location.reload()
+    this.refs.commentForm.reset()
   }
   render() {
     const { postId } = this.props
-    console.log(postId)
+
     return (
       <div>
-      <form onSubmit={this.handleSubmit}>
+      <form ref='commentForm' onSubmit={this.handleSubmit}>
       <div>
         <label>
           id:
         </label>
-        <input type="text" name='id' value={this.state.id} onChange={this.handleChange} />
+        <input type="text" name='id' ref='id' value={this.state.id} onChange={this.handleChange} />
       </div>
       <div>
         <label>
           timestamp:
         </label>
-        <input type="text" name='timestamp' value={this.state.timestamp} onChange={this.handleChange} />
+        <input type="text" name='timestamp' ref='timestamp' value={this.state.timestamp} onChange={this.handleChange} />
       </div>
       <div>
         <label>
           title:
         </label>
-        <input type="text" name='body' value={this.state.body} onChange={this.handleChange} />
+        <input type="text" name='body' ref='body' value={this.state.body} onChange={this.handleChange} />
       </div>
       <div>
         <label>
           body:
         </label>
-        <input type="text" name='author' value={this.state.author} onChange={this.handleChange} />
+        <input type="text" name='author' ref='author' value={this.state.author} onChange={this.handleChange} />
       </div>
         <RaisedButton primary={true}><input type="submit" value="Submit" /></RaisedButton>
       </form>
@@ -61,5 +68,10 @@ class CommentForm extends React.Component {
     )
   }
 }
-
-export default CommentForm
+function mapStateToProps(state, props) {
+  return {
+		comment: state.comment,
+	}
+}
+// export default CommentForm
+export default connect(mapStateToProps, { postNewComment })(CommentForm)
