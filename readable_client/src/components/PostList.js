@@ -51,10 +51,10 @@ class PostList extends React.Component {
 		if (this.state.learnMoreMode === true) {
 			return
 		}
+    history.push(`/${item.category}/${item.id}`)
 		this.setState({
 			learnMoreMode: true,
 		})
-    history.push(`/${item.category}/${item.id}`)
 	}
 	sortVoteScore = (post) => {
 		let oldPost = this.props.post
