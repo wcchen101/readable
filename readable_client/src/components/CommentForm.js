@@ -23,13 +23,17 @@ class CommentForm extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
+    const { history } = this.props
     const id = this.refs.id.value
     const timestamp = this.refs.timestamp.value
     const body = this.refs.body.value
     const author = this.refs.author.value
     const parentId = this.props.postId
-    this.props.postNewComment(id, timestamp, body, author, parentId)
-    writeComment(this.state)
+    if (id !== this.state.id || timestamp !== this.state.timestamp
+      || body !== this.state.body || author !== this.state.author) {
+        this.props.postNewComment(id, timestamp, body, author, parentId)
+        writeComment(this.state)
+    }
     this.refs.commentForm.reset()
     this.setState({
       id: '',
