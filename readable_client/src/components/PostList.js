@@ -128,7 +128,7 @@ class PostList extends React.Component {
 					</div>
 				) : (
 					<div>
-						<h3>Update Post</h3>
+
 						<PostForm
 							post={this.state.editItem}
 							history={history}

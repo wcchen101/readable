@@ -16,7 +16,6 @@ class CategoryList extends React.Component {
     this.props.addCategory()
   }
 	linkToMainPage = () => {
-		console.log('link main')
 		const { history } = this.props
 		this.setState({
 			newPostMode: false,

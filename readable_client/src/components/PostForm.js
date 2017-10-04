@@ -50,6 +50,7 @@ class PostForm extends React.Component {
       <div>
       <form ref='postForm' onSubmit={this.handleSubmit}>
       <div>
+				<h3>New Post</h3>
         <label>
           id:
         </label>
@@ -83,7 +84,11 @@ class PostForm extends React.Component {
         <label>
           category:
         </label>
-          <input type="text" name='category' ref='category' value={this.state.category} onChange={this.handleChange} />
+        <select name='category' ref='category' value={this.state.category} onChange={this.handleChange}>
+          <option selected value="react">React</option>
+          <option value="redux">Redux</option>
+          <option value="udacity">Udacity</option>
+        </select>
       </div>
       <input type="submit" value="Submit" />
       </form>
