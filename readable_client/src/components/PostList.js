@@ -83,7 +83,7 @@ class PostList extends React.Component {
 				{editPostMode !== true ? (
 					<div>
 					<ul>
-					{post && (post.map((item, index) => (
+					{post !== undefined && post && (post.map((item, index) => (
 						<div>
 						{item !== undefined && item && categoryName === item['category'] && (
 							<div className='postComponent'>
@@ -128,7 +128,6 @@ class PostList extends React.Component {
 					</div>
 				) : (
 					<div>
-
 						<PostForm
 							post={this.state.editItem}
 							history={history}
