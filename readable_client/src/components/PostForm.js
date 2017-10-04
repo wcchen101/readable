@@ -40,7 +40,7 @@ class PostForm extends React.Component {
     writePost(this.state)
     this.refs.postForm.reset()
     if (history) {
-      history.push('/')
+      history.push('/' + category)
     }
   }
   render() {

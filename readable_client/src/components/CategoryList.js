@@ -36,16 +36,19 @@ class CategoryList extends React.Component {
 		history.push(`/udacity/`)
 	}
 	showNewPost() {
-		this.setState({
-			newPostMode: true,
-		})
-
+		// this.setState({
+		// 	newPostMode: true,
+		// })
+		const { history } = this.props
+		history.push(`/newpost/`)
 	}
 	render () {
+
 		const { category } = this.props
 		const { match, history } =  this.props
 		const { comment } = this.props.match.params
 		const { newPostMode } = this.state
+		console.log(match)
 		return (
 			<div>
 				<div>
@@ -59,7 +62,7 @@ class CategoryList extends React.Component {
 					{newPostMode === false ? (
 						<div>
 							<ul>
-							{category !== undefined && category && category.length !== 0 && (category.map((item) => (
+							{category !== undefined && match.params.category !== 'newpost' && category && category.length !== 0 && (category.map((item) => (
 								<Route path='/' render={() => (
 									<div>
 										<h1>Category</h1>
@@ -86,7 +89,6 @@ class CategoryList extends React.Component {
 							newPostMode={newPostMode}
 							/>
 					)}
-
 				</div>
 			</div>
 		)
