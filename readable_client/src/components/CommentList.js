@@ -56,8 +56,6 @@ class CommentList extends React.Component {
 			<div>
 					{editCommentMode !== true ? (
 						<div>
-								<h2>Comment</h2>
-								<h4>Number of comment: {comment.length}</h4>
 								<div className='comment-container'>
 									{comment !== undefined && comment && (comment.map((item, index) => (
 										<div>

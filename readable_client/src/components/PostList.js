@@ -76,7 +76,7 @@ class PostList extends React.Component {
 		const { categoryName, post } = this.props
 		const { match, history } =  this.props
 		const { editPostMode, learnMoreMode } = this.state
-
+		const { comment } = this.props
 		return (
 			<div>
 				<div>
@@ -109,7 +109,10 @@ class PostList extends React.Component {
 									<RaisedButton label="Downvote" secondary={true} onClick={() => this.onDownVote(item['id'], index)}/>
 									<RaisedButton label="Sort by timestamp" onClick={() => this.sortTimeStamp(item)}/>
 									<RaisedButton label="Sort by votescore" onClick={() => this.sortVoteScore(item)}/>
+
 									<div>
+										<h2> Comment </h2>
+										<h4>Number of Comment: { comment === undefined ? ( 0 ) : (comment.length) }</h4>
 										<CommentList
 											postId={ item['id'] }
 											match={match}
