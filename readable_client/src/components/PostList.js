@@ -22,11 +22,11 @@ class PostList extends React.Component {
 		}))
 	)
   }
-	deletePost = (postId, index) => {
+	deletePost = (postId, category, index) => {
 		const { history } = this.props
 		this.props.removePost(index)
 		deletePost(postId)
-		history.push(`/`)
+		history.push('/'+ category)
 	}
 	onUpVote = (postId, index) => {
 		this.props.postUpVoteScore(index)
@@ -96,7 +96,7 @@ class PostList extends React.Component {
 							) : (
 								<div>
 								<RaisedButton onClick={() => this.onEdit(item)}>Edit Post</RaisedButton>
-								<RaisedButton label="Delete Post" secondary={true} onClick={() => this.deletePost(item['id'], index)}/>
+								<RaisedButton label="Delete Post" secondary={true} onClick={() => this.deletePost(item['id'], item['category'], index)}/>
 								</div>
 							)}
 								<div className='postList'>
