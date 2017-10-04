@@ -13,7 +13,11 @@ class CategoryList extends React.Component {
     this.props.addCategory()
   }
 	linkToMainPage = () => {
+		console.log('link main')
 		const { history } = this.props
+		this.setState({
+			newPostMode: false,
+		})
 		history.push(`/`)
 	}
 	linkToReactPage = () => {
@@ -28,7 +32,10 @@ class CategoryList extends React.Component {
 		const { history } = this.props
 		history.push(`/udacity/`)
 	}
-
+	showNewPost() {
+		const { history } = this.props
+		history.push(`/newpost/`)
+	}
 	render () {
 		const { category } = this.props
 		const { match, history } =  this.props
@@ -36,15 +43,18 @@ class CategoryList extends React.Component {
 
 		return (
 			<div>
+				<div>
+					<RaisedButton onClick={() => this.linkToMainPage()}>Main Page</RaisedButton>
+					<RaisedButton onClick={() => this.linkToReactPage()}>React</RaisedButton>
+					<RaisedButton onClick={() => this.linkToReduxPage()}>Redux</RaisedButton>
+					<RaisedButton onClick={() => this.linkToUdacityPage()}>Udacity</RaisedButton>
+					<RaisedButton onClick={() => this.showNewPost()}>New Post</RaisedButton>
+				</div>
+				<div>
 					<div>
-						<RaisedButton onClick={() => this.linkToMainPage()}>Main Page</RaisedButton>
-	          <RaisedButton onClick={() => this.linkToReactPage()}>React</RaisedButton>
-	          <RaisedButton onClick={() => this.linkToReduxPage()}>Redux</RaisedButton>
-	          <RaisedButton onClick={() => this.linkToUdacityPage()}>Udacity</RaisedButton>
-	          <RaisedButton href='#addNewPost'>New Post</RaisedButton>
 						<ul>
-						{category && category.length !== 0 && (category.map((item) => (
-							<Route path='' render={() => (
+						{category !== undefined && category && category.length !== 0 && (category.map((item) => (
+							<Route exact path='/' render={() => (
 								<div>
 									<h1>Category</h1>
 									<div>
@@ -64,11 +74,8 @@ class CategoryList extends React.Component {
 							))
 						)}
 						</ul>
-						<div id='addNewPost'>
-							<h3> Add new post</h3>
-							<PostForm/>
-						</div>
 					</div>
+				</div>
 			</div>
 		)
 	}
