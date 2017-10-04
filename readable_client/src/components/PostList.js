@@ -53,7 +53,7 @@ class PostList extends React.Component {
 			learnMoreMode: true,
 		})
 	}
-	sortVoteScore = (post) => {
+	sortVoteScore = () => {
 		let oldPost = this.props.post
 		oldPost.sort((a, b) => {
 			return b.voteScore - a.voteScore;
@@ -82,6 +82,8 @@ class PostList extends React.Component {
 				<div>
 				{editPostMode !== true ? (
 					<div>
+					<RaisedButton label="Sort by timestamp" onClick={() => this.sortTimeStamp()}/>
+					<RaisedButton label="Sort by votescore" onClick={() => this.sortVoteScore()}/>
 					<ul>
 					{post !== undefined && post && (post.map((item, index) => (
 						<div>
@@ -107,9 +109,6 @@ class PostList extends React.Component {
 								</div>
 									<RaisedButton label="Upvote" primary={true} onClick={() => this.onUpVote(item['id'], index)}/>
 									<RaisedButton label="Downvote" secondary={true} onClick={() => this.onDownVote(item['id'], index)}/>
-									<RaisedButton label="Sort by timestamp" onClick={() => this.sortTimeStamp(item)}/>
-									<RaisedButton label="Sort by votescore" onClick={() => this.sortVoteScore(item)}/>
-
 									<div>
 										<h2> Comment </h2>
 										<h4>Number of Comment: { comment === undefined ? ( 0 ) : (comment.length) }</h4>
