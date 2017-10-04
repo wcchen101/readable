@@ -85,9 +85,10 @@ class PostForm extends React.Component {
           category:
         </label>
         <select name='category' ref='category' value={this.state.category} onChange={this.handleChange}>
-          <option selected value="react">React</option>
-          <option value="redux">Redux</option>
-          <option value="udacity">Udacity</option>
+          <option value='none'>None</option>
+          <option value='react'>React</option>
+          <option value='redux'>Redux</option>
+          <option value='udacity'>Udacity</option>
         </select>
       </div>
       <input type="submit" value="Submit" />

@@ -31,13 +31,20 @@ class CommentForm extends React.Component {
     this.props.postNewComment(id, timestamp, body, author, parentId)
     writeComment(this.state)
     this.refs.commentForm.reset()
+    this.setState({
+      id: '',
+      timestamp: '',
+      body: '',
+      author: '',
+      parentId: this.props.postId,
+    })
   }
   render() {
     const { postId } = this.props
 
     return (
       <div>
-      <form ref='commentForm' onSubmit={this.handleSubmit}>
+      <form onSubmit={this.handleSubmit} ref='commentForm'>
       <div>
         <label>
           id:

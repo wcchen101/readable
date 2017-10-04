@@ -140,7 +140,7 @@ class PostList extends React.Component {
 }
 
 function mapStateToProps(state, props) {
-	if (props.match.params.post && state.post.length !== 0) {
+	if (props.match.params.post && state.post.length !== 0 && props.match.params.comment && state.comment.length !== 0) {
 		return {
 			post: [state.post.find(item => item.id === props.match.params.post)],
 			comment: [state.comment.find(item => item.id === props.match.params.comment)]
