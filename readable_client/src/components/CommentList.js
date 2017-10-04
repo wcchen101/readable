@@ -24,12 +24,6 @@ class CommentList extends React.Component {
 	onDelete = (id, index) => {
 		this.props.removeComment(id, index)
 		deleteComment(id)
-		// fetchComment(this.props.postId).then((comment) =>
-		// 	this.setState(() => ({
-		// 		comment: comment
-		// 	}))
-		// )
-    // window.location.reload()
 	}
 	onEditComment = (comment) => {
 		this.setState({
@@ -56,6 +50,8 @@ class CommentList extends React.Component {
 			<div>
 					{editCommentMode !== true ? (
 						<div>
+								<h2>Comment</h2>
+								<h4>Number of comment: {comment.length}</h4>
 								<div className='comment-container'>
 									{comment !== undefined && comment && (comment.map((item, index) => (
 										<div>

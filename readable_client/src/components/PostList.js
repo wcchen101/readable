@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { Route } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { addPost, postUpVoteScore, postDownVoteScore, removePost } from '../actions'
+import { addPost, postUpVoteScore, postDownVoteScore, removePost, addComment } from '../actions'
 import CommentList from './CommentList'
 import { deletePost, upVotePost, downVotePost, fetchPost } from '../utils/readableAPI'
 import RaisedButton from 'material-ui/FlatButton';
@@ -37,7 +37,6 @@ class PostList extends React.Component {
 		downVotePost(postId)
 	}
 	onEdit = (item) => {
-		console.log('edit', item)
 		this.setState({
 			editPostMode: true,
 			editItem: item,
@@ -48,6 +47,7 @@ class PostList extends React.Component {
 		if (this.state.learnMoreMode === true) {
 			return
 		}
+		this.props.addComment(item.id)
     history.push(`/${item.category}/${item.id}`)
 		this.setState({
 			learnMoreMode: true,
@@ -144,11 +144,13 @@ class PostList extends React.Component {
 function mapStateToProps(state, props) {
 	if (props.match.params.post && state.post.length !== 0) {
 		return {
-			post: [state.post.find(item => item.id === props.match.params.post)]
+			post: [state.post.find(item => item.id === props.match.params.post)],
+			comment: [state.comment.find(item => item.id === props.match.params.comment)]
 		}
 	}
 	return {
 		post: state.post,
+		comment: state.comment,
 	}
 }
-export default connect(mapStateToProps, { addPost, postUpVoteScore, postDownVoteScore, removePost })(PostList)
+export default connect(mapStateToProps, { addPost, postUpVoteScore, postDownVoteScore, removePost, addComment })(PostList)
