@@ -9,6 +9,9 @@ import RaisedButton from 'material-ui/FlatButton';
 
 
 class CategoryList extends React.Component {
+	state = {
+		newPostMode: false,
+	}
 	componentWillMount() {
     this.props.addCategory()
   }
@@ -33,14 +36,16 @@ class CategoryList extends React.Component {
 		history.push(`/udacity/`)
 	}
 	showNewPost() {
-		const { history } = this.props
-		history.push(`/newpost/`)
+		this.setState({
+			newPostMode: true,
+		})
+
 	}
 	render () {
 		const { category } = this.props
 		const { match, history } =  this.props
 		const { comment } = this.props.match.params
-
+		const { newPostMode } = this.state
 		return (
 			<div>
 				<div>
@@ -51,30 +56,37 @@ class CategoryList extends React.Component {
 					<RaisedButton onClick={() => this.showNewPost()}>New Post</RaisedButton>
 				</div>
 				<div>
-					<div>
-						<ul>
-						{category !== undefined && category && category.length !== 0 && (category.map((item) => (
-							<Route exact path='/' render={() => (
-								<div>
-									<h1>Category</h1>
+					{newPostMode === false ? (
+						<div>
+							<ul>
+							{category !== undefined && category && category.length !== 0 && (category.map((item) => (
+								<Route path='/' render={() => (
 									<div>
-										<p>Category name: { item['name'] }</p>
-										<p>Category path: { item['path'] }</p>
+										<h1>Category</h1>
+										<div>
+											<p>Category name: { item['name'] }</p>
+											<p>Category path: { item['path'] }</p>
+										</div>
+										<div className='postList'>
+											<h1>Post</h1>
+											<PostList
+												categoryName = {item['name']}
+												match = {match}
+												history={history}
+											/>
+										</div>
 									</div>
-									<div className='postList'>
-										<h1>Post</h1>
-										<PostList
-											categoryName = {item['name']}
-											match = {match}
-											history={history}
-										/>
-									</div>
-								</div>
-							)}/>
-							))
-						)}
-						</ul>
-					</div>
+								)}/>
+								))
+							)}
+							</ul>
+						</div>
+					) : (
+						<PostForm
+							newPostMode={newPostMode}
+							/>
+					)}
+
 				</div>
 			</div>
 		)
