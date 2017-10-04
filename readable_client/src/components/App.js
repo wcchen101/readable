@@ -4,6 +4,7 @@ import { addCategory, addPost } from '../actions'
 import PostForm from './PostForm'
 import CategoryList from './CategoryList'
 import PostList from './PostList'
+import NotFoundPage from './NotFoundPage'
 import { Route } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import './App.css'
@@ -26,6 +27,7 @@ class App extends Component {
           <Route exact path='/:category/:post' component={CategoryList}/>
           <Route exact path='/:category/:post/:comment' component={CategoryList}/>
           <Route exact path='/newpost' component={PostForm}/>
+          <Route path='*' component={NotFoundPage}/>
         </div>
       </MuiThemeProvider>
     )

@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import { addCategory, addPost } from '../actions'
 import { Link } from 'react-router-dom'
 import RaisedButton from 'material-ui/FlatButton';
-
+import NotFoundPage from './NotFoundPage'
 
 class CategoryList extends React.Component {
 	state = {
@@ -46,51 +46,57 @@ class CategoryList extends React.Component {
 		const { category } = this.props
 		const { match, history } =  this.props
 		const { comment } = this.props.match.params
-		const { newPostMode } = this.state
-		console.log(match)
-		return (
-			<div>
+		const { newPostMode, hasError } = this.state
+
+		try {
+			return (
 				<div>
-					<RaisedButton onClick={() => this.linkToMainPage()}>Main Page</RaisedButton>
-					<RaisedButton onClick={() => this.linkToReactPage()}>React</RaisedButton>
-					<RaisedButton onClick={() => this.linkToReduxPage()}>Redux</RaisedButton>
-					<RaisedButton onClick={() => this.linkToUdacityPage()}>Udacity</RaisedButton>
-					<RaisedButton onClick={() => this.showNewPost()}>New Post</RaisedButton>
-				</div>
-				<div>
-					{newPostMode === false ? (
-						<div>
-							<ul>
-							{category !== undefined && match.params.category !== 'newpost' && category && category.length !== 0 && (category.map((item) => (
-								<Route path='/' render={() => (
-									<div>
-										<h1>Category</h1>
+					<div>
+						<RaisedButton onClick={() => this.linkToMainPage()}>Main Page</RaisedButton>
+						<RaisedButton onClick={() => this.linkToReactPage()}>React</RaisedButton>
+						<RaisedButton onClick={() => this.linkToReduxPage()}>Redux</RaisedButton>
+						<RaisedButton onClick={() => this.linkToUdacityPage()}>Udacity</RaisedButton>
+						<RaisedButton onClick={() => this.showNewPost()}>New Post</RaisedButton>
+					</div>
+					<div>
+						{newPostMode === false ? (
+							<div>
+								<ul>
+								{category !== undefined && match.params.category !== 'newpost' && category && category.length !== 0 && (category.map((item) => (
 										<div>
-											<p>Category name: { item['name'] }</p>
-											<p>Category path: { item['path'] }</p>
+											<h1>Category</h1>
+											<div>
+												<p>Category name: { item['name'] }</p>
+												<p>Category path: { item['path'] }</p>
+											</div>
+											<div className='postList'>
+												<h1>Post</h1>
+												<PostList
+													categoryName = {item['name']}
+													match = {match}
+													history={history}
+												/>
+											</div>
 										</div>
-										<div className='postList'>
-											<h1>Post</h1>
-											<PostList
-												categoryName = {item['name']}
-												match = {match}
-												history={history}
-											/>
-										</div>
-									</div>
-								)}/>
-								))
-							)}
-							</ul>
-						</div>
-					) : (
-						<PostForm
-							newPostMode={newPostMode}
-							/>
-					)}
+									))
+								)}
+								</ul>
+							</div>
+						) : (
+							<PostForm
+								newPostMode={newPostMode}
+								/>
+						)}
+					</div>
 				</div>
-			</div>
-		)
+			)
+		}
+		catch (error) {
+			return (
+				<h1>Please Check Back Again!</h1>
+			)
+		}
+
 	}
 }
 CategoryList.propTypes = {
