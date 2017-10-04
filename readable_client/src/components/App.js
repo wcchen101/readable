@@ -27,7 +27,6 @@ class App extends Component {
           <Route exact path='/:category/:post' component={CategoryList}/>
           <Route exact path='/:category/:post/:comment' component={CategoryList}/>
           <Route exact path='/newpost' component={PostForm}/>
-          <Route path='*' component={NotFoundPage}/>
         </div>
       </MuiThemeProvider>
     )

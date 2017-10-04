@@ -93,7 +93,7 @@ class CategoryList extends React.Component {
 		}
 		catch (error) {
 			return (
-				<h1>Please Check Back Again!</h1>
+				<NotFoundPage/>
 			)
 		}
 
