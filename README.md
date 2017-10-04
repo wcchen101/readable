@@ -8,6 +8,8 @@
 ##Reference
 - Udacity React Nanodegree Redux Content
 - Learn Redux (https://learnredux.com/)
+- React official website: https://reactjs.org/
+- React Router: http://knowbody.github.io/react-router-docs/About.html
 
 ##Author
 - Wei-Chung Chen
