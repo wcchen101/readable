@@ -45,7 +45,6 @@ export function post (state=[], action={}) {
 			]
 
 		case POST_NEW_POST:
-			console.log('post new post', action)
 			return [
 				...state,
 				{
@@ -104,7 +103,7 @@ export function comment (state=[], action={}) {
 					voteScore: 1,
 				}
 			]
-	
+
 		case DELETE_COMMENT:
 			const removeIndex = action.index
 			return [
