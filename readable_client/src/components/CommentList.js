@@ -84,6 +84,7 @@ class CommentList extends React.Component {
 							<h3>Add New Comment</h3>
 							<CommentForm
 								postId={postId}
+								postCategory={category}
 								commentId={this.props.match.params.comment}
 								comment={this.state.editComment}
 							/>

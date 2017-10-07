@@ -23,17 +23,14 @@ class CommentForm extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
-    const { history } = this.props
     const id = this.refs.id.value
     const timestamp = this.refs.timestamp.value
     const body = this.refs.body.value
     const author = this.refs.author.value
     const parentId = this.props.postId
-    if (id !== this.state.id || timestamp !== this.state.timestamp
-      || body !== this.state.body || author !== this.state.author) {
-        this.props.postNewComment(id, timestamp, body, author, parentId)
-        writeComment(this.state)
-    }
+
+    this.props.postNewComment(id, timestamp, body, author, parentId)
+    writeComment(this.state)
     this.refs.commentForm.reset()
     this.setState({
       id: '',
@@ -73,7 +70,7 @@ class CommentForm extends React.Component {
         </label>
         <input type="text" name='author' ref='author' value={this.state.author} onChange={this.handleChange} />
       </div>
-        <RaisedButton primary={true}><input type="submit" value="Submit" /></RaisedButton>
+        <input type="submit" value="Submit" />
       </form>
       </div>
     )
