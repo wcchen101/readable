@@ -1,7 +1,7 @@
 import React from 'react'
 import { writeComment } from '../utils/readableAPI'
 import { connect } from 'react-redux'
-import { postNewComment, addComment } from '../actions'
+import { postNewComment, addComment, removeComment } from '../actions'
 
 class CommentForm extends React.Component {
    state = {
@@ -18,8 +18,11 @@ class CommentForm extends React.Component {
       [name]: e.target.value,
     })
   }
-
+  omponentWillMount() {
+    this.props.addComment(this.props.postId)
+  }
   handleSubmit = (e) => {
+    const { history, category } = this.props
     e.preventDefault()
     const id = this.refs.id.value
     const timestamp = this.refs.timestamp.value
@@ -36,9 +39,11 @@ class CommentForm extends React.Component {
       author: '',
       parentId: this.props.postId,
     })
+
+    history.push('/' + category + '/')
   }
   render() {
-    console.log(this.props.comment)
+    console.log('history', this.props)
     return (
       <div>
       <form onSubmit={this.handleSubmit} ref='commentForm'>
@@ -76,4 +81,4 @@ function mapStateToProps(state, props) {
   return {
 	}
 }
-export default connect(mapStateToProps, { postNewComment, addComment})(CommentForm)
+export default connect(mapStateToProps, { postNewComment, addComment, removeComment})(CommentForm)

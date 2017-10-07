@@ -10,6 +10,7 @@ class CommentList extends React.Component {
 	state = {
 		editCommentMode: false,
 		editComment: null,
+		index: 0,
 	}
 	componentWillMount() {
     	this.props.addComment(this.props.postId)
@@ -24,10 +25,10 @@ class CommentList extends React.Component {
 		deleteComment(id)
 	}
 	onEditComment = (comment, index) => {
-		this.props.removeComment(comment.id, index)
 		this.setState({
 			editCommentMode: true,
 			editComment: comment,
+			index: index,
 		})
 	}
 	onUpVote = (commentId, index) => {
@@ -39,14 +40,15 @@ class CommentList extends React.Component {
 		downVoteComment(commentId)
 	}
 	render() {
-		const { postId, match } = this.props
+		const { postId, match, history } = this.props
 		const { comment, learnMoreMode } = this.props
-		const { editCommentMode } = this.state
-		let category = match.url.slice(1, match.url.length - 1)
+		const { editCommentMode, index } = this.state
+		let categoryPost = match.url.slice(1, match.url.length - 1).split('/')
+		let category = categoryPost[0]
 
 		return (
 			<div>
-					{learnMoreMode === true  ? (
+					{learnMoreMode === true && editCommentMode !== true ? (
 						<div>
 								<div className='comment-container'>
 									{comment !== undefined && comment && (comment.map((item, index) => (
@@ -73,6 +75,8 @@ class CommentList extends React.Component {
 	 								 <h3>Add New Comment</h3>
 	 								 <CommentForm
 	 									 postId={postId}
+										 history={history}
+										 category={category}
 	 									 commentId={this.props.match.params.comment}
 	 									 comment={this.state.editComment}
 	 								 />
@@ -94,7 +98,10 @@ class CommentList extends React.Component {
 						<CommentForm
 						postId={postId}
 						commentId={this.props.match.params.comment}
-						comment={this.state.editComment}/>
+						comment={this.state.editComment}
+						index={index}
+						category={category}
+						history={history}/>
 					</div>
 				) : (
 					<div>
