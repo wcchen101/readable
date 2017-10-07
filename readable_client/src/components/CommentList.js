@@ -1,6 +1,4 @@
-import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
-import { Route } from 'react-router-dom'
+import React from 'react'
 import { connect } from 'react-redux'
 import { addComment, upVoteScore, downVoteScore, removeComment } from '../actions'
 import CommentForm from './CommentForm'
@@ -25,7 +23,8 @@ class CommentList extends React.Component {
 		this.props.removeComment(id, index)
 		deleteComment(id)
 	}
-	onEditComment = (comment) => {
+	onEditComment = (comment, index) => {
+		this.props.removeComment(comment.id, index)
 		this.setState({
 			editCommentMode: true,
 			editComment: comment,
@@ -47,7 +46,7 @@ class CommentList extends React.Component {
 
 		return (
 			<div>
-					{editCommentMode !== true ? (
+					{learnMoreMode === true  ? (
 						<div>
 								<div className='comment-container'>
 									{comment !== undefined && comment && (comment.map((item, index) => (
@@ -59,40 +58,48 @@ class CommentList extends React.Component {
 											<p>Post Id: {item.parentId} </p>
 											<p>Vote Score: {item.voteScore} </p>
 											<div className='button-container'>
-											<RaisedButton label="Upvote" primary={true} onClick={() => this.onUpVote(item.id, index)}/>
-											<RaisedButton label="Downvote" secondary={true} onClick={() => this.onDownVote(item.id, index)}/>
-											<RaisedButton label="Delete Comment" secondary={true} onClick={() => this.onDelete(item.id, index) }/>
-											<RaisedButton label="Edit Comment" primary={true} onClick={() => this.onEditComment(item)}></RaisedButton>
-											</div>
-										</div>
+											  <RaisedButton label="Upvote" primary={true} onClick={() => this.onUpVote(item.id, index)}/>
+											  <RaisedButton label="Downvote" secondary={true} onClick={() => this.onDownVote(item.id, index)}/>
+											  <RaisedButton label="Delete Comment" secondary={true} onClick={() => this.onDelete(item.id, index) }/>
+											  <RaisedButton label="Edit Comment" primary={true} onClick={() => this.onEditComment(item, index)}></RaisedButton>
+										  </div>
+							 			</div>
 										))
 									)
 								}
+							 </div>
+							 {editCommentMode !== true ? (
+								 <div>
+	 								 <h3>Add New Comment</h3>
+	 								 <CommentForm
+	 									 postId={postId}
+	 									 commentId={this.props.match.params.comment}
+	 									 comment={this.state.editComment}
+	 								 />
+	 							 </div>
+ 							) : (
+								<div>
 								</div>
-						</div>
-					) : (
-						<div>
-							<h3>Update Comment</h3>
-							<CommentForm
-							postId={postId}
-							commentId={this.props.match.params.comment}
-							comment={this.state.editComment}/>
-						</div>
-					)}
-					{learnMoreMode === true && editCommentMode !== true ? (
-						<div>
-							<h3>Add New Comment</h3>
-							<CommentForm
-								postId={postId}
-								postCategory={category}
-								commentId={this.props.match.params.comment}
-								comment={this.state.editComment}
-							/>
+							)
+						}
 						</div>
 					) : (
 						<div>
 						</div>
-					)}
+					)
+				}
+				{editCommentMode === true ? (
+					<div>
+						<h3>Update Comment</h3>
+						<CommentForm
+						postId={postId}
+						commentId={this.props.match.params.comment}
+						comment={this.state.editComment}/>
+					</div>
+				) : (
+					<div>
+					</div>
+				)}
 			</div>
 		)
 	}

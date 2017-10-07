@@ -1,19 +1,10 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { addCategory, addPost } from '../actions'
 import PostForm from './PostForm'
 import CategoryList from './CategoryList'
-import PostList from './PostList'
-import NotFoundPage from './NotFoundPage'
 import { Route } from 'react-router-dom'
-import { Link } from 'react-router-dom'
 import './App.css'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
-import FlatButton from 'material-ui/FlatButton';
-import Paper from 'material-ui/Paper';
-import Menu from 'material-ui/Menu';
-import MenuItem from 'material-ui/MenuItem';
 
 class App extends Component {
 

@@ -1,9 +1,7 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { writeComment } from '../utils/readableAPI'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
-import RaisedButton from 'material-ui/FlatButton';
-import { postNewComment } from '../actions'
+import { postNewComment, addComment } from '../actions'
 
 class CommentForm extends React.Component {
    state = {
@@ -28,7 +26,6 @@ class CommentForm extends React.Component {
     const body = this.refs.body.value
     const author = this.refs.author.value
     const parentId = this.props.postId
-
     this.props.postNewComment(id, timestamp, body, author, parentId)
     writeComment(this.state)
     this.refs.commentForm.reset()
@@ -41,8 +38,7 @@ class CommentForm extends React.Component {
     })
   }
   render() {
-    const { postId } = this.props
-
+    console.log(this.props.comment)
     return (
       <div>
       <form onSubmit={this.handleSubmit} ref='commentForm'>
@@ -80,4 +76,4 @@ function mapStateToProps(state, props) {
   return {
 	}
 }
-export default connect(mapStateToProps, { postNewComment })(CommentForm)
+export default connect(mapStateToProps, { postNewComment, addComment})(CommentForm)

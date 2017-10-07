@@ -1,7 +1,3 @@
-import { fetchCategories, fetchPosts, writePost  } from '../utils/readableAPI'
-import { applyMiddleware, createStore } from 'redux'
-
-import thunk from 'redux-thunk'
 
 export const ADD_CATEGORY = 'ADD_CATEGORY'
 export const SET_POST = 'SET_POST'

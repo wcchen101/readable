@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { writePost } from '../utils/readableAPI'
 import { connect } from 'react-redux'
 import { postNewPost } from '../actions'
@@ -23,9 +23,7 @@ class PostForm extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault()
 		const { history } = this.props
-    console.log('post state', this.state)
     let categoryCheck = this.state.category
-    let categoryPool = ['react', 'redux', 'udacity']
     if (categoryCheck !== 'react' && categoryCheck !== 'redux' && categoryCheck !== 'udacity') {
       window.alert('No match cateogry, Please enter new one')
       return
@@ -44,8 +42,6 @@ class PostForm extends React.Component {
     }
   }
   render() {
-    console.log('post', this.props.post)
-    const { post } = this.props
     return (
       <div>
       <form ref='postForm' onSubmit={this.handleSubmit}>

@@ -1,11 +1,8 @@
 import { combineReducers } from 'redux'
 import {
-	ADD_CATEGORY,
 	SET_POST,
 	SET_CATEGORY,
-	ADD_POST,
 	SET_COMMENT,
-	ADD_COMMENT,
 	UPDATE_VOTESCORE,
 	UP_VOTESCORE,
 	DOWN_VOTESCORE,
@@ -16,12 +13,6 @@ import {
 	DELETE_POST,
 	POST_NEW_POST,
 } from '../actions'
-
-const initialState = {
-  category: null,
-  post: null,
-	comment: null,
-}
 
 export function category (state=[], action={}) {
 	switch(action.type) {
@@ -113,6 +104,7 @@ export function comment (state=[], action={}) {
 					voteScore: 1,
 				}
 			]
+	
 		case DELETE_COMMENT:
 			const removeIndex = action.index
 			return [

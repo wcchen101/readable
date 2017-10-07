@@ -1,10 +1,8 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PostList from './PostList'
 import PostForm from './PostForm'
-import { Route } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { addCategory, addPost } from '../actions'
-import { Link } from 'react-router-dom'
+import { addCategory } from '../actions'
 import RaisedButton from 'material-ui/FlatButton';
 import NotFoundPage from './NotFoundPage'
 
@@ -35,9 +33,6 @@ class CategoryList extends React.Component {
 		history.push(`/udacity/`)
 	}
 	showNewPost() {
-		// this.setState({
-		// 	newPostMode: true,
-		// })
 		const { history } = this.props
 		history.push(`/newpost/`)
 	}
@@ -45,8 +40,7 @@ class CategoryList extends React.Component {
 
 		const { category } = this.props
 		const { match, history } =  this.props
-		const { comment } = this.props.match.params
-		const { newPostMode, hasError } = this.state
+		const { newPostMode } = this.state
 
 		try {
 			return (
@@ -99,11 +93,6 @@ class CategoryList extends React.Component {
 
 	}
 }
-CategoryList.propTypes = {
-  category: React.PropTypes.array.isRequired,
-  addCategory: React.PropTypes.func.isRequired,
-}
-
 function mapStateToProps (state, props) {
 	if (props.match.params.category && state.category.length !== 0) {
 		return {

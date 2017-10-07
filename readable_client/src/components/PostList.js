@@ -1,6 +1,4 @@
-import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
-import { Route } from 'react-router-dom'
+import React from 'react'
 import { connect } from 'react-redux'
 import { addPost, postUpVoteScore, postDownVoteScore, removePost, addComment } from '../actions'
 import CommentList from './CommentList'
