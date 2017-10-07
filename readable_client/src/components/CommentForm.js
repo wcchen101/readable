@@ -1,5 +1,5 @@
 import React from 'react'
-import { writeComment } from '../utils/readableAPI'
+import { writeComment, updateComment } from '../utils/readableAPI'
 import { connect } from 'react-redux'
 import { postNewComment, addComment, removeComment } from '../actions'
 
@@ -22,15 +22,23 @@ class CommentForm extends React.Component {
     this.props.addComment(this.props.postId)
   }
   handleSubmit = (e) => {
-    const { history, category } = this.props
+    const { history, category, editMode } = this.props
     e.preventDefault()
-    const id = this.refs.id.value
+    let id = this.state.id
+    if (editMode !== true) {
+      id = this.refs.id.value
+    }
     const timestamp = this.refs.timestamp.value
     const body = this.refs.body.value
     const author = this.refs.author.value
     const parentId = this.props.postId
-    this.props.postNewComment(id, timestamp, body, author, parentId)
-    writeComment(this.state)
+    if (editMode === true) {
+  		updateComment(id, timestamp, body, author)
+    }
+    else {
+      this.props.postNewComment(id, timestamp, body, author, parentId)
+      writeComment(this.state)
+    }
     this.refs.commentForm.reset()
     this.setState({
       id: '',
@@ -39,20 +47,26 @@ class CommentForm extends React.Component {
       author: '',
       parentId: this.props.postId,
     })
-
-    history.push('/' + category + '/')
+    if (editMode === true) {
+      history.push('/' + category + '/')
+    }
   }
   render() {
-    console.log('history', this.props)
+    const { editMode } = this.props
     return (
       <div>
       <form onSubmit={this.handleSubmit} ref='commentForm'>
-      <div>
-        <label>
-          id:
-        </label>
-        <input type="text" name='id' ref='id' value={this.state.id} onChange={this.handleChange} />
-      </div>
+      {editMode !== true ? (
+        <div>
+          <label>
+            id:
+          </label>
+          <input type="text" name='id' ref='id' value={this.state.id} onChange={this.handleChange} />
+        </div>
+      ) : (
+        <div>
+        </div>
+      )}
       <div>
         <label>
           timestamp:

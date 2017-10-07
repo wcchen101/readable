@@ -16,7 +16,7 @@ class CommentList extends React.Component {
     	this.props.addComment(this.props.postId)
       fetchComment(this.props.postId).then((comment) =>
 				this.setState(() => ({
-					comment: comment
+					comment: comment,
 			}))
 		)
   }
@@ -70,43 +70,38 @@ class CommentList extends React.Component {
 									)
 								}
 							 </div>
-							 {editCommentMode !== true ? (
-								 <div>
-	 								 <h3>Add New Comment</h3>
-	 								 <CommentForm
-	 									 postId={postId}
-										 history={history}
-										 category={category}
-	 									 commentId={this.props.match.params.comment}
-	 									 comment={this.state.editComment}
-	 								 />
-	 							 </div>
- 							) : (
-								<div>
-								</div>
-							)
-						}
 						</div>
 					) : (
 						<div>
+							<h3>Update Comment</h3>
+							<CommentForm
+							postId={postId}
+							commentId={this.props.match.params.comment}
+							comment={this.state.editComment}
+							index={index}
+							category={category}
+							editMode={true}
+							history={history}/>
 						</div>
 					)
 				}
-				{editCommentMode === true ? (
+				{learnMoreMode === true && editCommentMode !== true ? (
 					<div>
-						<h3>Update Comment</h3>
+						<h3>Add New Comment</h3>
 						<CommentForm
-						postId={postId}
-						commentId={this.props.match.params.comment}
-						comment={this.state.editComment}
-						index={index}
-						category={category}
-						history={history}/>
+							postId={postId}
+							history={history}
+							category={category}
+							editMode={false}
+							commentId={this.props.match.params.comment}
+							comment={this.state.editComment}
+						/>
 					</div>
-				) : (
-					<div>
-					</div>
-				)}
+			 ) : (
+				 <div>
+				 </div>
+			 )
+		 }
 			</div>
 		)
 	}

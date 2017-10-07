@@ -63,11 +63,12 @@ export const writeComment = (comment) => {
   })
 }
 
-export const updateComment = (id, comment) => {
+export const updateComment = (id, timestamp, body, author) => {
   fetch(`${api}/comments/${id}`, { headers, method: 'PUT',
   body: JSON.stringify({
-    timestamp: comment.preTimestamp,
-    body: comment.preBody,
+    timestamp: timestamp,
+    body: body,
+    author: author,
     })
   })
 }
