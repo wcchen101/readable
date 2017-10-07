@@ -73,19 +73,11 @@ class CommentList extends React.Component {
 						</div>
 					) : (
 						<div>
-							<h3>Update Comment</h3>
-							<CommentForm
-							postId={postId}
-							commentId={this.props.match.params.comment}
-							comment={this.state.editComment}
-							index={index}
-							category={category}
-							editMode={true}
-							history={history}/>
+
 						</div>
 					)
 				}
-				{learnMoreMode === true && editCommentMode !== true ? (
+				{editCommentMode !== true && (
 					<div>
 						<h3>Add New Comment</h3>
 						<CommentForm
@@ -97,11 +89,21 @@ class CommentList extends React.Component {
 							comment={this.state.editComment}
 						/>
 					</div>
-			 ) : (
+			 )}
+			 {editCommentMode === true && (
 				 <div>
+					 <h3>Update Comment</h3>
+					 <CommentForm
+					 postId={postId}
+					 commentId={this.props.match.params.comment}
+					 comment={this.state.editComment}
+					 index={index}
+					 category={category}
+					 editMode={true}
+					 history={history}
+					 />
 				 </div>
-			 )
-		 }
+			 )}
 			</div>
 		)
 	}
